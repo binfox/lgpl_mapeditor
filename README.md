@@ -3,6 +3,8 @@
 
 Original von The Shadow www.mapeditor.de.vu
 
+Download: https://www.blitzforum.de/upload/file.php?id=13415
+
 Changelog
 
 02.11.2019
