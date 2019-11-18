@@ -1,0 +1,535 @@
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="format.css">
+  </head>
+  <body bgcolor="#FFFFFF" text="#000000" link="#000000" vlink="#000000" alink="#000000">
+
+
+    <table width="100%" border="0" cellpadding="5" cellspacing="0">
+
+
+      <tr><td background="../image/line.jpg" style="background-repeat:repeat-y;"><b>Dateiformat</b></td></tr>
+      <tr>
+        <td valign="top">
+
+          Das bin&auml;re Dateiformat ist sehr kompakt. Es ist nach Baukasten-Prinzip aufgebaut und kann recht schnell und einfach geladen werden. Header und Table sind feste Bestandteile. Danach folgen Objektdaten. Optional k&ouml;nnen auch Subdaten enthalten sein - diese werden dem letzten Objekt zugeordnet. Die L&auml;nge der Datei muss durch 4 teilbar sein.<br><br>
+
+          <img src="../image/fileformat.gif"><br><br>
+
+          Hinweis: Objekt ist entweder ein Layer, Bildobjekt, geom. Objekt oder Tileset. Tileset steht grunds&auml;tzlich sofort hinter Table. Danach folgt Hintergrund-Objekt und erst dann der Rest.<br><br><br>
+        </td>
+      </tr>
+
+
+      <tr><td background="../image/line.jpg" style="background-repeat:repeat-y;"><b>Header</b></td></tr>
+      <tr>
+        <td valign="top">
+          Header enth&auml;lt Hauptinformationen der Karte. Hier wird z.B. die Anzahl der Objekte gespeichert. Header ist immer unverschl&uuml;sselt. CRC32-Checksumme wird erst ab Offset [8] berechnet. SHA1-Fingerprint speichert Passwort-Hashwert.<br><br>
+
+          <table border="0" cellpadding="1" cellspacing="1">
+            <tr bgcolor="#E0E0E0"><td><b>Offset</b></td><td><b>Byte</b></td><td><b>Beschreibung</b></td></tr>
+            <tr bgcolor="#F0F0F0"><td>0</td><td>3</td><td>'UMF' Kennung (universal map file)</td></tr>
+            <tr bgcolor="#F0F0F0"><td>3</td><td>1</td><td>Bit 0-5 = Dateiformatversion<br>1=Version 1.0-1.1<br>2=Version 1.2-1.3<br>3=Version 1.4+<br><br>Bit 6 = Erstellt mit PROversion (0=nein, 1=ja)<br>Bit 7 = Verschl&uuml;sselt (0=nein, 1=ja)<br></td></tr>
+            <tr bgcolor="#F0F0F0"><td>4</td><td>4</td><td>CRC32-Checksumme</td></tr>
+            <tr bgcolor="#F0F0F0"><td>8</td><td>20</td><td>SHA1-Fingerprint (nur PROversion)</td></tr>
+            <tr bgcolor="#F0F0F0"><td>28</td><td>2</td><td>Anzahl Bl&ouml;cke</td></tr>
+            <tr bgcolor="#F0F0F0"><td>30</td><td>2</td><td>Anzahl Layerobjekte</td></tr>
+            <tr bgcolor="#F0F0F0"><td>32</td><td>2</td><td>Anzahl Bildobjekte</td></tr>
+            <tr bgcolor="#F0F0F0"><td>34</td><td>2</td><td>Anzahl geom. Objekte</td></tr>
+            <tr bgcolor="#F0F0F0"><td>36</td><td>2</td><td>Anzahl Tilesets</td></tr>
+            <tr bgcolor="#F0F0F0"><td>38</td><td>2</td><td>Anzahl Animationen</td></tr>
+            <tr bgcolor="#F0F0F0"><td>40</td><td>2</td><td>Anzahl Basisdaten</td></tr>
+            <tr bgcolor="#F0F0F0"><td>42</td><td>2</td><td>Anzahl Datenlayer</td></tr>
+            <tr bgcolor="#F0F0F0"><td>44</td><td>2</td><td>Anzahl Metadaten</td></tr>
+            <tr bgcolor="#F0F0F0"><td>46</td><td>2</td><td><font color=red>Anzahl Variablenbl&ouml;cke (ab v1.4)</font></td></tr>
+            <tr bgcolor="#F0F0F0"><td>48</td><td>2</td><td><font color=red>Anzahl Standard Datenwerte (ab v1.4)</font></td></tr>
+            <tr bgcolor="#F0F0F0"><td>50</td><td>14</td><td>*reserviert*</td></tr>
+            <tr bgcolor="#E0E0E0"><td><br></td><td><br></td><td>Gesamtl&auml;nge 64 Byte</td></tr>
+          </table><br><br>
+
+        </td>
+      </tr>
+
+
+      <tr><td background="../image/line.jpg" style="background-repeat:repeat-y;"><b>Table</b></td></tr>
+      <tr>
+        <td valign="top">
+          Map-Datei besteht aus einzelnen Bl&ouml;cken. Ein Block kann z.B. Objektdaten, Basisdaten, Metadaten, Datenlayer usw. enthalten. Dabei belegt ein Block bestimmte Anzahl an Bytes. In Table stehen alle diese Gr&ouml;&szlig;en untereinander. Wenn sich das Dateiformat in Zukunft etwas &auml;ndern sollte (z.B. weil ein ganz neues Objekt eingebaut wurde), w&auml;re das trotzdem kein Problem die Datei auch mit dem alten Code zu laden!<br><br>
+
+          <table border="0" cellpadding="1" cellspacing="1">
+            <tr bgcolor="#E0E0E0"><td><b>Offset</b></td><td><b>Byte</b></td><td><b>Beschreibung</b></td></tr>
+            <tr bgcolor="#F0F0F0"><td>0</td><td>4</td><td>Gr&ouml;&szlig;e Block 1</td></tr>
+            <tr bgcolor="#F0F0F0"><td>4</td><td>4</td><td>Gr&ouml;&szlig;e Block 2</td></tr>
+            <tr bgcolor="#F0F0F0"><td>...</td><td>4</td><td>Gr&ouml;&szlig;e Block n</td></tr>
+          </table><br><br>
+
+        </td>
+      </tr>
+
+
+      <tr><td background="../image/line.jpg" style="background-repeat:repeat-y;"><b>Tileset</b></td></tr>
+      <tr>
+        <td valign="top">
+          Tileset-Definitionen stehen direkt hinter Table. Diese k&ouml;nnen nur Animation-Definitionen enthalten.<br><br>
+
+          <table border="0" cellpadding="1" cellspacing="1">
+            <tr bgcolor="#E0E0E0"><td><b>Offset</b></td><td><b>Byte</b></td><td><b>Beschreibung</b></td></tr>
+            <tr bgcolor="#F0F0F0"><td>0</td><td>1</td><td>Konstante 100</td></tr>
+            <tr bgcolor="#F0F0F0"><td>1</td><td>1</td><td>Maskierung R</td></tr>
+            <tr bgcolor="#F0F0F0"><td>2</td><td>1</td><td>Maskierung G</td></tr>
+            <tr bgcolor="#F0F0F0"><td>3</td><td>1</td><td>Maskierung B</td></tr>
+            <tr bgcolor="#F0F0F0"><td>4</td><td>2</td><td>Framebreite</td></tr>
+            <tr bgcolor="#F0F0F0"><td>6</td><td>2</td><td>Frameh&ouml;he</td></tr>
+            <tr bgcolor="#F0F0F0"><td>8</td><td>2</td><td>Y-Korrektur</td></tr>
+            <tr bgcolor="#F0F0F0"><td>10</td><td>2</td><td>Anzahl Animationen</td></tr>
+            <tr bgcolor="#F0F0F0"><td>12</td><td>2</td><td>Anzahl Frames</td></tr>
+            <tr bgcolor="#F0F0F0"><td>14</td><td>12</td><td>Grafikdatei</td></tr>
+            <tr bgcolor="#E0E0E0"><td><br></td><td><br></td><td>Gesamtl&auml;nge 26 Byte</td></tr>
+          </table><br><br>
+
+        </td>
+      </tr>
+
+
+      <tr><td background="../image/line.jpg" style="background-repeat:repeat-y;"><b>Animation</b></td></tr>
+      <tr>
+        <td valign="top">
+          Animation-Definition kann nur hinter einem Tileset stehen.<br><br>
+
+          <table border="0" cellpadding="1" cellspacing="1">
+            <tr bgcolor="#E0E0E0"><td><b>Offset</b></td><td><b>Byte</b></td><td><b>Beschreibung</b></td></tr>
+            <tr bgcolor="#F0F0F0"><td>0</td><td>1</td><td>Konstante 101</td></tr>
+            <tr bgcolor="#F0F0F0"><td>1</td><td>2</td><td>Frameanzahl (ab 1)</td></tr>
+            <tr bgcolor="#F0F0F0"><td>3</td><td>2</td><td>Startframe (ab 1)</td></tr>
+            <tr bgcolor="#F0F0F0"><td>5</td><td>1</td><td>Modus (1=Pause, 2=Vorw&auml;rts, 3=R&uuml;ckw&auml;rts)</td></tr>
+            <tr bgcolor="#F0F0F0"><td>6</td><td>1</td><td><font color=red>Standard Datenwert (ab v1.2)</font></td></tr>
+            <tr bgcolor="#F0F0F0"><td>7</td><td>4</td><td>*reserviert* (Millisekunden im Programm)</td></tr>
+            <tr bgcolor="#F0F0F0"><td>11</td><td>2</td><td>*reserviert* (Aktuelle Framenr im Programm)</td></tr>
+            <tr bgcolor="#F0F0F0"><td>...</td><td>2</td><td>Animation Frame</td></tr>
+            <tr bgcolor="#F0F0F0"><td>...</td><td>2</td><td>Animation Zeit</td></tr>
+            <tr bgcolor="#F0F0F0"><td>...</td><td><br></td><td><br></td></tr>
+            <tr bgcolor="#E0E0E0"><td><br></td><td><br></td><td>Gesamtl&auml;nge 13+x Byte</td></tr>
+          </table><br><br>
+
+        </td>
+      </tr>
+
+
+      <tr><td background="../image/line.jpg" style="background-repeat:repeat-y;"><font color=red><b>Standard Datenwerte (ab v1.2)</b></font></td></tr>
+      <tr>
+        <td valign="top">
+          Diese Tabelle enth&auml;lt Standardwerte die jedem Tile zugewiesen werden k&ouml;nnen. Kann nur hinter einem Tileset stehen.<br><br>
+
+          <table border="0" cellpadding="1" cellspacing="1">
+            <tr bgcolor="#E0E0E0"><td><b>Offset</b></td><td><b>Byte</b></td><td><b>Beschreibung</b></td></tr>
+            <tr bgcolor="#F0F0F0"><td>0</td><td>1</td><td>Konstante 105</td></tr>
+            <tr bgcolor="#F0F0F0"><td>1</td><td>2</td><td>Frameanzahl</td></tr>
+            <tr bgcolor="#F0F0F0"><td>3</td><td>1</td><td>*reserviert*</td></tr>
+            <tr bgcolor="#F0F0F0"><td>4</td><td>x</td><td>Standardwerte 1 Byte pro Frame</td></tr>
+            <tr bgcolor="#E0E0E0"><td><br></td><td><br></td><td>Gesamtl&auml;nge 4+x Byte</td></tr>
+          </table><br><br>
+
+        </td>
+      </tr>
+
+
+      <tr><td background="../image/line.jpg" style="background-repeat:repeat-y;"><b>Hintergrund</b></td></tr>
+      <tr>
+        <td valign="top">
+          Hintergrundobjekt ist bei jeder Karte vorhanden und wird nach Tileset-Definitionen gespeichert. Kann Metadaten enthalten. F&uuml;llfarbe kann auch als Maskierfarbe interpretiert werden, wenn ein Bild maskiert dargestellt wird.<br><br>
+
+          <table border="0" cellpadding="1" cellspacing="1">
+            <tr bgcolor="#E0E0E0"><td><b>Offset</b></td><td><b>Byte</b></td><td><b>Beschreibung</b></td></tr>
+            <tr bgcolor="#F0F0F0"><td>0</td><td>1</td><td>Konstante 0</td></tr>
+            <tr bgcolor="#F0F0F0"><td>1</td><td>1</td><td>Sichtbar (0=nein, 1=ja)</td></tr>
+            <tr bgcolor="#F0F0F0"><td>2</td><td>12</td><td>Grafikdatei</td></tr>
+            <tr bgcolor="#F0F0F0"><td>14</td><td>1</td><td>Parallax X</td></tr>
+            <tr bgcolor="#F0F0F0"><td>15</td><td>1</td><td>Parallax Y</td></tr>
+            <tr bgcolor="#F0F0F0"><td>16</td><td>4</td><td>Position X</td></tr>
+            <tr bgcolor="#F0F0F0"><td>20</td><td>4</td><td>Position Y</td></tr>
+            <tr bgcolor="#F0F0F0"><td>24</td><td>4</td><td>Kartenbreite</td></tr>
+            <tr bgcolor="#F0F0F0"><td>28</td><td>4</td><td>Kartenh&ouml;he</td></tr>
+            <tr bgcolor="#F0F0F0"><td>32</td><td>1</td><td>F&uuml;llmodus (0=Ohne, 1=Farbe, 2=Bild, 3=Bild maskiert)</td></tr>
+            <tr bgcolor="#F0F0F0"><td>33</td><td>1</td><td>F&uuml;llfarbe R</td></tr>
+            <tr bgcolor="#F0F0F0"><td>34</td><td>1</td><td>F&uuml;llfarbe G</td></tr>
+            <tr bgcolor="#F0F0F0"><td>35</td><td>1</td><td>F&uuml;llfarbe B</td></tr>
+            <tr bgcolor="#E0E0E0"><td><br></td><td><br></td><td>Gesamtl&auml;nge 36 Byte</td></tr>
+          </table><br><br>
+
+        </td>
+      </tr>
+
+
+      <tr><td background="../image/line.jpg" style="background-repeat:repeat-y;"><b>Layer (Rechteckig)</b></td></tr>
+      <tr>
+        <td valign="top">
+          Layerobjekt kann Basisdaten, Metadaten oder Datenlayer enthalten.<br><br>
+
+          <table border="0" cellpadding="1" cellspacing="1">
+            <tr bgcolor="#E0E0E0"><td><b>Offset</b></td><td><b>Byte</b></td><td><b>Beschreibung</b></td></tr>
+            <tr bgcolor="#F0F0F0"><td>0</td><td>1</td><td>Konstante 1</td></tr>
+            <tr bgcolor="#F0F0F0"><td>1</td><td>1</td><td>Sichtbar (0=nein, 1=ja)</td></tr>
+            <tr bgcolor="#F0F0F0"><td>2</td><td>12</td><td>Name</td></tr>
+            <tr bgcolor="#F0F0F0"><td>14</td><td>1</td><td>Parallax X</td></tr>
+            <tr bgcolor="#F0F0F0"><td>15</td><td>1</td><td>Parallax Y</td></tr>
+            <tr bgcolor="#F0F0F0"><td>16</td><td>4</td><td>Position X</td></tr>
+            <tr bgcolor="#F0F0F0"><td>20</td><td>4</td><td>Position Y</td></tr>
+            <tr bgcolor="#F0F0F0"><td>24</td><td>4</td><td>Layerbreite</td></tr>
+            <tr bgcolor="#F0F0F0"><td>28</td><td>4</td><td>Layerh&ouml;he</td></tr>
+            <tr bgcolor="#F0F0F0"><td>32</td><td>2</td><td>Tilesetnummer</td></tr>
+            <tr bgcolor="#F0F0F0"><td>34</td><td>1</td><td>Maskiert (0=nein, 1=ja)</td></tr>
+            <tr bgcolor="#F0F0F0"><td>35</td><td>1</td><td><font color=red>Layerwiederholung (0=nein, 1=ja) ab v1.4</font></td></tr>
+            <tr bgcolor="#E0E0E0"><td><br></td><td><br></td><td>Gesamtl&auml;nge 35 Byte (bis v1.3)<br><font color=red>Gesamtl&auml;nge 36 Byte (ab v1.4)</font></td></tr>
+          </table><br><br>
+
+        </td>
+      </tr>
+
+
+      <tr><td background="../image/line.jpg" style="background-repeat:repeat-y;"><b>Layer (Isometrisch 1)</b></td></tr>
+      <tr>
+        <td valign="top">
+          Layerobjekt kann Basisdaten, Metadaten oder Datenlayer enthalten.<br><br>
+
+          <table border="0" cellpadding="1" cellspacing="1">
+            <tr bgcolor="#E0E0E0"><td><b>Offset</b></td><td><b>Byte</b></td><td><b>Beschreibung</b></td></tr>
+            <tr bgcolor="#F0F0F0"><td>0</td><td>1</td><td>Konstante 2</td></tr>
+            <tr bgcolor="#F0F0F0"><td>1</td><td>1</td><td>Sichtbar (0=nein, 1=ja)</td></tr>
+            <tr bgcolor="#F0F0F0"><td>2</td><td>12</td><td>Name</td></tr>
+            <tr bgcolor="#F0F0F0"><td>14</td><td>1</td><td>Parallax X</td></tr>
+            <tr bgcolor="#F0F0F0"><td>15</td><td>1</td><td>Parallax Y</td></tr>
+            <tr bgcolor="#F0F0F0"><td>16</td><td>4</td><td>Position X</td></tr>
+            <tr bgcolor="#F0F0F0"><td>20</td><td>4</td><td>Position Y</td></tr>
+            <tr bgcolor="#F0F0F0"><td>24</td><td>4</td><td>Layerbreite</td></tr>
+            <tr bgcolor="#F0F0F0"><td>28</td><td>4</td><td>Layerh&ouml;he</td></tr>
+            <tr bgcolor="#F0F0F0"><td>32</td><td>2</td><td>Tilesetnummer</td></tr>
+            <tr bgcolor="#E0E0E0"><td><br></td><td><br></td><td>Gesamtl&auml;nge 34 Byte</td></tr>
+          </table><br><br>
+
+        </td>
+      </tr>
+
+
+      <tr><td background="../image/line.jpg" style="background-repeat:repeat-y;"><b>Layer (Isometrisch 2)</b></td></tr>
+      <tr>
+        <td valign="top">
+          Layerobjekt kann Basisdaten, Metadaten oder Datenlayer enthalten.<br><br>
+
+          <table border="0" cellpadding="1" cellspacing="1">
+            <tr bgcolor="#E0E0E0"><td><b>Offset</b></td><td><b>Byte</b></td><td><b>Beschreibung</b></td></tr>
+            <tr bgcolor="#F0F0F0"><td>0</td><td>1</td><td>Konstante 3</td></tr>
+            <tr bgcolor="#F0F0F0"><td>1</td><td>1</td><td>Sichtbar (0=nein, 1=ja)</td></tr>
+            <tr bgcolor="#F0F0F0"><td>2</td><td>12</td><td>Name</td></tr>
+            <tr bgcolor="#F0F0F0"><td>14</td><td>1</td><td>Parallax X</td></tr>
+            <tr bgcolor="#F0F0F0"><td>15</td><td>1</td><td>Parallax Y</td></tr>
+            <tr bgcolor="#F0F0F0"><td>16</td><td>4</td><td>Position X</td></tr>
+            <tr bgcolor="#F0F0F0"><td>20</td><td>4</td><td>Position Y</td></tr>
+            <tr bgcolor="#F0F0F0"><td>24</td><td>4</td><td>Layerbreite</td></tr>
+            <tr bgcolor="#F0F0F0"><td>28</td><td>4</td><td>Layerh&ouml;he</td></tr>
+            <tr bgcolor="#F0F0F0"><td>32</td><td>2</td><td>Tilesetnummer</td></tr>
+            <tr bgcolor="#F0F0F0"><td>34</td><td>1</td><td>Tile Shift (0=nein, 1=ja)</td></tr>
+            <tr bgcolor="#E0E0E0"><td><br></td><td><br></td><td>Gesamtl&auml;nge 35 Byte</td></tr>
+          </table><br><br>
+
+        </td>
+      </tr>
+
+
+      <tr><td background="../image/line.jpg" style="background-repeat:repeat-y;"><b>Layer (Hexagonal 1)</b></td></tr>
+      <tr>
+        <td valign="top">
+          Layerobjekt kann Basisdaten, Metadaten oder Datenlayer enthalten.<br><br>
+
+          <table border="0" cellpadding="1" cellspacing="1">
+            <tr bgcolor="#E0E0E0"><td><b>Offset</b></td><td><b>Byte</b></td><td><b>Beschreibung</b></td></tr>
+            <tr bgcolor="#F0F0F0"><td>0</td><td>1</td><td>Konstante 4</td></tr>
+            <tr bgcolor="#F0F0F0"><td>1</td><td>1</td><td>Sichtbar (0=nein, 1=ja)</td></tr>
+            <tr bgcolor="#F0F0F0"><td>2</td><td>12</td><td>Name</td></tr>
+            <tr bgcolor="#F0F0F0"><td>14</td><td>1</td><td>Parallax X</td></tr>
+            <tr bgcolor="#F0F0F0"><td>15</td><td>1</td><td>Parallax Y</td></tr>
+            <tr bgcolor="#F0F0F0"><td>16</td><td>4</td><td>Position X</td></tr>
+            <tr bgcolor="#F0F0F0"><td>20</td><td>4</td><td>Position Y</td></tr>
+            <tr bgcolor="#F0F0F0"><td>24</td><td>4</td><td>Layerbreite</td></tr>
+            <tr bgcolor="#F0F0F0"><td>28</td><td>4</td><td>Layerh&ouml;he</td></tr>
+            <tr bgcolor="#F0F0F0"><td>32</td><td>2</td><td>Tilesetnummer</td></tr>
+            <tr bgcolor="#F0F0F0"><td>34</td><td>1</td><td>Tile Shift (0=nein, 1=ja)</td></tr>
+            <tr bgcolor="#E0E0E0"><td><br></td><td><br></td><td>Gesamtl&auml;nge 35 Byte</td></tr>
+          </table><br><br>
+
+        </td>
+      </tr>
+
+
+      <tr><td background="../image/line.jpg" style="background-repeat:repeat-y;"><b>Layer (Hexagonal 2)</b></td></tr>
+      <tr>
+        <td valign="top">
+          Layerobjekt kann Basisdaten, Metadaten oder Datenlayer enthalten.<br><br>
+
+          <table border="0" cellpadding="1" cellspacing="1">
+            <tr bgcolor="#E0E0E0"><td><b>Offset</b></td><td><b>Byte</b></td><td><b>Beschreibung</b></td></tr>
+            <tr bgcolor="#F0F0F0"><td>0</td><td>1</td><td>Konstante 5</td></tr>
+            <tr bgcolor="#F0F0F0"><td>1</td><td>1</td><td>Sichtbar (0=nein, 1=ja)</td></tr>
+            <tr bgcolor="#F0F0F0"><td>2</td><td>12</td><td>Name</td></tr>
+            <tr bgcolor="#F0F0F0"><td>14</td><td>1</td><td>Parallax X</td></tr>
+            <tr bgcolor="#F0F0F0"><td>15</td><td>1</td><td>Parallax Y</td></tr>
+            <tr bgcolor="#F0F0F0"><td>16</td><td>4</td><td>Position X</td></tr>
+            <tr bgcolor="#F0F0F0"><td>20</td><td>4</td><td>Position Y</td></tr>
+            <tr bgcolor="#F0F0F0"><td>24</td><td>4</td><td>Layerbreite</td></tr>
+            <tr bgcolor="#F0F0F0"><td>28</td><td>4</td><td>Layerh&ouml;he</td></tr>
+            <tr bgcolor="#F0F0F0"><td>32</td><td>2</td><td>Tilesetnummer</td></tr>
+            <tr bgcolor="#F0F0F0"><td>34</td><td>1</td><td>Tile Shift (0=nein, 1=ja)</td></tr>
+            <tr bgcolor="#E0E0E0"><td><br></td><td><br></td><td>Gesamtl&auml;nge 35 Byte</td></tr>
+          </table><br><br>
+
+        </td>
+      </tr>
+
+
+      <tr><td background="../image/line.jpg" style="background-repeat:repeat-y;"><b>Layer (Klon)</b></td></tr>
+      <tr>
+        <td valign="top">
+          Enth&auml;lt keine Basisdaten oder Datenlayer! Kann aber Metadaten enthalten. Jeder Layer bekommt eine eigene Nummer. Der erste Layer begint mit 1 - alle anderen bekommen fortlaufende Nummer.<br><br>
+
+          <table border="0" cellpadding="1" cellspacing="1">
+            <tr bgcolor="#E0E0E0"><td><b>Offset</b></td><td><b>Byte</b></td><td><b>Beschreibung</b></td></tr>
+            <tr bgcolor="#F0F0F0"><td>0</td><td>1</td><td>Konstante 6</td></tr>
+            <tr bgcolor="#F0F0F0"><td>1</td><td>1</td><td>Sichtbar (0=nein, 1=ja)</td></tr>
+            <tr bgcolor="#F0F0F0"><td>2</td><td>12</td><td>Name</td></tr>
+            <tr bgcolor="#F0F0F0"><td>14</td><td>1</td><td>Parallax X</td></tr>
+            <tr bgcolor="#F0F0F0"><td>15</td><td>1</td><td>Parallax Y</td></tr>
+            <tr bgcolor="#F0F0F0"><td>16</td><td>4</td><td>Position X</td></tr>
+            <tr bgcolor="#F0F0F0"><td>20</td><td>4</td><td>Position Y</td></tr>
+            <tr bgcolor="#F0F0F0"><td>24</td><td>2</td><td>Layernummer</td></tr>
+            <tr bgcolor="#E0E0E0"><td><br></td><td><br></td><td>Gesamtl&auml;nge 26 Byte</td></tr>
+          </table><br><br>
+
+        </td>
+      </tr>
+
+
+      <tr><td background="../image/line.jpg" style="background-repeat:repeat-y;"><b>Basisdaten</b></td></tr>
+      <tr>
+        <td valign="top">
+          Diese Daten enthalten die Hauptinformationen zu einem Layer. Nach diesen Werten wird ein Layer dann gezeichnet. Kann nur hinter Layer-Objekten stehen (ausser Klonlayer). Datenaufbau siehe <a href="datas.htm"><b>hier</b></a>.<br><br>
+
+          <table border="0" cellpadding="1" cellspacing="1">
+            <tr bgcolor="#E0E0E0"><td><b>Offset</b></td><td><b>Byte</b></td><td><b>Beschreibung</b></td></tr>
+            <tr bgcolor="#F0F0F0"><td>0</td><td>1</td><td>Konstante 102</td></tr>
+            <tr bgcolor="#F0F0F0"><td>1</td><td>1</td><td>Datentiefe (4, 8, 12 oder 16)</td></tr>
+            <tr bgcolor="#F0F0F0"><td>2</td><td>4</td><td>Datenl&auml;nge in Byte</td></tr>
+            <tr bgcolor="#F0F0F0"><td>6</td><td>2</td><td>*reserviert*</td></tr>
+            <tr bgcolor="#F0F0F0"><td>8</td><td>x</td><td>Daten...</td></tr>
+            <tr bgcolor="#F0F0F0"><td>...</td><td><br></td><td><br></td></tr>
+            <tr bgcolor="#E0E0E0"><td><br></td><td><br></td><td>Gesamtl&auml;nge 8+x Byte</td></tr>
+          </table><br><br>
+
+        </td>
+      </tr>
+
+
+      <tr><td background="../image/line.jpg" style="background-repeat:repeat-y;"><b>Datenlayer</b></td></tr>
+      <tr>
+        <td valign="top">
+          Datenlayer enth&auml;lt unsichtbare Informationen zu einem Layer. Jedes Tile kann einen Wert besitzen. Kann nur hinter Layer-Objekten stehen (ausser Klonlayer). Datenaufbau siehe <a href="datas.htm"><b>hier</b></a>.<br><br>
+
+          <table border="0" cellpadding="1" cellspacing="1">
+            <tr bgcolor="#E0E0E0"><td><b>Offset</b></td><td><b>Byte</b></td><td><b>Beschreibung</b></td></tr>
+            <tr bgcolor="#F0F0F0"><td>0</td><td>1</td><td>Konstante 103</td></tr>
+            <tr bgcolor="#F0F0F0"><td>1</td><td>1</td><td>Datentiefe (1, 2, 4 oder 8)</td></tr>
+            <tr bgcolor="#F0F0F0"><td>2</td><td>4</td><td>Datenl&auml;nge in Byte</td></tr>
+            <tr bgcolor="#F0F0F0"><td>6</td><td>2</td><td>*reserviert*</td></tr>
+            <tr bgcolor="#F0F0F0"><td>8</td><td>x</td><td>Daten...</td></tr>
+            <tr bgcolor="#F0F0F0"><td>...</td><td><br></td><td><br></td></tr>
+            <tr bgcolor="#E0E0E0"><td><br></td><td><br></td><td>Gesamtl&auml;nge 8+x Byte</td></tr>
+          </table><br><br>
+
+        </td>
+      </tr>
+
+
+      <tr><td background="../image/line.jpg" style="background-repeat:repeat-y;"><b>Metadaten</b></td></tr>
+      <tr>
+        <td valign="top">
+          Metadaten sind unsichtbare Informationen die zu einem Objekt zugewiesen werden k&ouml;nnen. Kann hinter jedem Objekt stehen (ausser Tileset).<br><br>
+
+          <table border="0" cellpadding="1" cellspacing="1">
+            <tr bgcolor="#E0E0E0"><td><b>Offset</b></td><td><b>Byte</b></td><td><b>Beschreibung</b></td></tr>
+            <tr bgcolor="#F0F0F0"><td>0</td><td>1</td><td>Konstante 104</td></tr>
+            <tr bgcolor="#F0F0F0"><td>1</td><td>1</td><td>Datenformat (0=BIN&Auml;R, 1=ASCII)</td></tr>
+            <tr bgcolor="#F0F0F0"><td>2</td><td>4</td><td>Datenl&auml;nge in Byte</td></tr>
+            <tr bgcolor="#F0F0F0"><td>6</td><td>2</td><td>*reserviert*</td></tr>
+            <tr bgcolor="#F0F0F0"><td>8</td><td>x</td><td>Daten...</td></tr>
+            <tr bgcolor="#F0F0F0"><td>...</td><td><br></td><td><br></td></tr>
+            <tr bgcolor="#E0E0E0"><td><br></td><td><br></td><td>Gesamtl&auml;nge 8+x Byte</td></tr>
+          </table><br><br>
+
+        </td>
+      </tr>
+
+
+      <tr><td background="../image/line.jpg" style="background-repeat:repeat-y;"><b><font color=red>Variablen (ab v1.4)</font></b></td></tr>
+      <tr>
+        <td valign="top">
+          Variablen sind unsichtbare Informationen die zu einem Objekt zugewiesen werden k&ouml;nnen. Kann hinter jedem Objekt stehen (ausser Tileset).<br><br>
+
+          <table border="0" cellpadding="1" cellspacing="1">
+            <tr bgcolor="#E0E0E0"><td><b>Offset</b></td><td><b>Byte</b></td><td><b>Beschreibung</b></td></tr>
+            <tr bgcolor="#F0F0F0"><td>0</td><td>1</td><td>Konstante 106</td></tr>
+            <tr bgcolor="#F0F0F0"><td>1</td><td>1</td><td>*reserviert*</td></tr>
+            <tr bgcolor="#F0F0F0"><td>2</td><td>2</td><td>Variablenanzahl</td></tr>
+            <tr bgcolor="#F0F0F0"><td>4</td><td>4</td><td>Datenl&auml;nge in Byte</td></tr>
+            <tr bgcolor="#F0F0F0"><td>8</td><td>x</td><td>Daten (Aufbau):<br>1) Stringl&auml;nge A f&uuml;r Name (1 byte)<br>2) Stringl&auml;nge B f&uuml;r Wert (1 byte)<br>3) Stringname mit L&auml;nge A<br>4) Stringwert mit L&auml;nge B</td></tr>
+            <tr bgcolor="#F0F0F0"><td>...</td><td><br></td><td><br></td></tr>
+            <tr bgcolor="#E0E0E0"><td><br></td><td><br></td><td>Gesamtl&auml;nge 8+x Byte</td></tr>
+          </table><br><br>
+
+        </td>
+      </tr>
+
+
+      <tr><td background="../image/line.jpg" style="background-repeat:repeat-y;"><b>Objekt (Bild)</b></td></tr>
+      <tr>
+        <td valign="top">
+          Enth&auml;lt keine Basisdaten oder Datenlayer! Kann aber Metadaten enthalten.<br><br>
+
+          <table border="0" cellpadding="1" cellspacing="1">
+            <tr bgcolor="#E0E0E0"><td><b>Offset</b></td><td><b>Byte</b></td><td><b>Beschreibung</b></td></tr>
+            <tr bgcolor="#F0F0F0"><td>0</td><td>1</td><td>Konstante 7</td></tr>
+            <tr bgcolor="#F0F0F0"><td>1</td><td>1</td><td>Sichtbar (0=nein, 1=ja)</td></tr>
+            <tr bgcolor="#F0F0F0"><td>2</td><td>12</td><td>Name</td></tr>
+            <tr bgcolor="#F0F0F0"><td>14</td><td>1</td><td>Parallax X</td></tr>
+            <tr bgcolor="#F0F0F0"><td>15</td><td>1</td><td>Parallax Y</td></tr>
+            <tr bgcolor="#F0F0F0"><td>16</td><td>4</td><td>Position X</td></tr>
+            <tr bgcolor="#F0F0F0"><td>20</td><td>4</td><td>Position Y</td></tr>
+            <tr bgcolor="#F0F0F0"><td>24</td><td>2</td><td>Tilesetnummer</td></tr>
+            <tr bgcolor="#F0F0F0"><td>26</td><td>2</td><td>Animationsnummer/Tilenummer</td></tr>
+            <tr bgcolor="#F0F0F0"><td>28</td><td>2</td><td>Animationsstartframe</td></tr>
+            <tr bgcolor="#F0F0F0"><td>30</td><td>1</td><td>Animationsmodus (0=Std, 1=Pause, 2=Vorw&auml;rts, 3=R&uuml;ckw&auml;rts)</td></tr>
+            <tr bgcolor="#F0F0F0"><td>31</td><td>1</td><td>Maskiert (0=nein, 1=ja)</td></tr>
+            <tr bgcolor="#E0E0E0"><td><br></td><td><br></td><td>Gesamtl&auml;nge 32 Byte</td></tr>
+          </table><br><br>
+
+        </td>
+      </tr>
+
+
+      <tr><td background="../image/line.jpg" style="background-repeat:repeat-y;"><b>Objekt (Block)</b></td></tr>
+      <tr>
+        <td valign="top">
+          Enth&auml;lt keine Basisdaten oder Datenlayer! Kann aber Metadaten enthalten. Jeder Layer bekommt eine eigene Nummer. Der erste Layer begint mit 1 - alle anderen bekommen fortlaufende Nummer.<br><br>
+
+          <table border="0" cellpadding="1" cellspacing="1">
+            <tr bgcolor="#E0E0E0"><td><b>Offset</b></td><td><b>Byte</b></td><td><b>Beschreibung</b></td></tr>
+            <tr bgcolor="#F0F0F0"><td>0</td><td>1</td><td>Konstante 8</td></tr>
+            <tr bgcolor="#F0F0F0"><td>1</td><td>1</td><td>Sichtbar (0=nein, 1=ja)</td></tr>
+            <tr bgcolor="#F0F0F0"><td>2</td><td>12</td><td>Name</td></tr>
+            <tr bgcolor="#F0F0F0"><td>14</td><td>1</td><td>Justage X</td></tr>
+            <tr bgcolor="#F0F0F0"><td>15</td><td>1</td><td>Justage Y</td></tr>
+            <tr bgcolor="#F0F0F0"><td>16</td><td>4</td><td>Tileposition X</td></tr>
+            <tr bgcolor="#F0F0F0"><td>20</td><td>4</td><td>Tileposition Y</td></tr>
+            <tr bgcolor="#F0F0F0"><td>24</td><td>2</td><td>Tilesetnummer</td></tr>
+            <tr bgcolor="#F0F0F0"><td>26</td><td>2</td><td>Animationsnummer/Tilenummer</td></tr>
+            <tr bgcolor="#F0F0F0"><td>28</td><td>2</td><td>Animationsstartframe</td></tr>
+            <tr bgcolor="#F0F0F0"><td>30</td><td>1</td><td>Animationsmodus (0=Std, 1=Pause, 2=Vorw&auml;rts, 3=R&uuml;ckw&auml;rts)</td></tr>
+            <tr bgcolor="#F0F0F0"><td>31</td><td>1</td><td>Maskiert (0=nein, 1=ja)</td></tr>
+            <tr bgcolor="#F0F0F0"><td>32</td><td>2</td><td>Layernummer</td></tr>
+            <tr bgcolor="#E0E0E0"><td><br></td><td><br></td><td>Gesamtl&auml;nge 34 Byte</td></tr>
+          </table><br><br>
+
+        </td>
+      </tr>
+
+
+      <tr><td background="../image/line.jpg" style="background-repeat:repeat-y;"><b>Objekt (Punkt)</b></td></tr>
+      <tr>
+        <td valign="top">
+          Enth&auml;lt keine Basisdaten oder Datenlayer! Kann aber Metadaten enthalten.<br><br>
+
+          <table border="0" cellpadding="1" cellspacing="1">
+            <tr bgcolor="#E0E0E0"><td><b>Offset</b></td><td><b>Byte</b></td><td><b>Beschreibung</b></td></tr>
+            <tr bgcolor="#F0F0F0"><td>0</td><td>1</td><td>Konstante 9</td></tr>
+            <tr bgcolor="#F0F0F0"><td>1</td><td>1</td><td>Sichtbar (0=nein, 1=ja)</td></tr>
+            <tr bgcolor="#F0F0F0"><td>2</td><td>12</td><td>Name</td></tr>
+            <tr bgcolor="#F0F0F0"><td>14</td><td>1</td><td>Parallax X</td></tr>
+            <tr bgcolor="#F0F0F0"><td>15</td><td>1</td><td>Parallax Y</td></tr>
+            <tr bgcolor="#F0F0F0"><td>16</td><td>4</td><td>Position X</td></tr>
+            <tr bgcolor="#F0F0F0"><td>20</td><td>4</td><td>Position Y</td></tr>
+            <tr bgcolor="#E0E0E0"><td><br></td><td><br></td><td>Gesamtl&auml;nge 24 Byte</td></tr>
+          </table><br><br>
+
+        </td>
+      </tr>
+
+
+      <tr><td background="../image/line.jpg" style="background-repeat:repeat-y;"><b>Objekt (Linie)</b></td></tr>
+      <tr>
+        <td valign="top">
+          Enth&auml;lt keine Basisdaten oder Datenlayer! Kann aber Metadaten enthalten.<br><br>
+
+          <table border="0" cellpadding="1" cellspacing="1">
+            <tr bgcolor="#E0E0E0"><td><b>Offset</b></td><td><b>Byte</b></td><td><b>Beschreibung</b></td></tr>
+            <tr bgcolor="#F0F0F0"><td>0</td><td>1</td><td>Konstante 10</td></tr>
+            <tr bgcolor="#F0F0F0"><td>1</td><td>1</td><td>Sichtbar (0=nein, 1=ja)</td></tr>
+            <tr bgcolor="#F0F0F0"><td>2</td><td>12</td><td>Name</td></tr>
+            <tr bgcolor="#F0F0F0"><td>14</td><td>1</td><td>Parallax X</td></tr>
+            <tr bgcolor="#F0F0F0"><td>15</td><td>1</td><td>Parallax Y</td></tr>
+            <tr bgcolor="#F0F0F0"><td>16</td><td>4</td><td>Startposition X</td></tr>
+            <tr bgcolor="#F0F0F0"><td>20</td><td>4</td><td>Startposition Y</td></tr>
+            <tr bgcolor="#F0F0F0"><td>24</td><td>4</td><td>Endposition X</td></tr>
+            <tr bgcolor="#F0F0F0"><td>28</td><td>4</td><td>Endposition Y</td></tr>
+            <tr bgcolor="#E0E0E0"><td><br></td><td><br></td><td>Gesamtl&auml;nge 32 Byte</td></tr>
+          </table><br><br>
+
+        </td>
+      </tr>
+
+
+      <tr><td background="../image/line.jpg" style="background-repeat:repeat-y;"><b>Objekt (Rechteck)</b></td></tr>
+      <tr>
+        <td valign="top">
+          Enth&auml;lt keine Basisdaten oder Datenlayer! Kann aber Metadaten enthalten.<br><br>
+
+          <table border="0" cellpadding="1" cellspacing="1">
+            <tr bgcolor="#E0E0E0"><td><b>Offset</b></td><td><b>Byte</b></td><td><b>Beschreibung</b></td></tr>
+            <tr bgcolor="#F0F0F0"><td>0</td><td>1</td><td>Konstante 11</td></tr>
+            <tr bgcolor="#F0F0F0"><td>1</td><td>1</td><td>Sichtbar (0=nein, 1=ja)</td></tr>
+            <tr bgcolor="#F0F0F0"><td>2</td><td>12</td><td>Name</td></tr>
+            <tr bgcolor="#F0F0F0"><td>14</td><td>1</td><td>Parallax X</td></tr>
+            <tr bgcolor="#F0F0F0"><td>15</td><td>1</td><td>Parallax Y</td></tr>
+            <tr bgcolor="#F0F0F0"><td>16</td><td>4</td><td>Position X</td></tr>
+            <tr bgcolor="#F0F0F0"><td>20</td><td>4</td><td>Position Y</td></tr>
+            <tr bgcolor="#F0F0F0"><td>24</td><td>4</td><td>Breite</td></tr>
+            <tr bgcolor="#F0F0F0"><td>28</td><td>4</td><td>H&ouml;he</td></tr>
+            <tr bgcolor="#E0E0E0"><td><br></td><td><br></td><td>Gesamtl&auml;nge 32 Byte</td></tr>
+          </table><br><br>
+
+        </td>
+      </tr>
+
+
+      <tr><td background="../image/line.jpg" style="background-repeat:repeat-y;"><b>Objekt (Oval)</b></td></tr>
+      <tr>
+        <td valign="top">
+          Enth&auml;lt keine Basisdaten oder Datenlayer! Kann aber Metadaten enthalten.<br><br>
+
+          <table border="0" cellpadding="1" cellspacing="1">
+            <tr bgcolor="#E0E0E0"><td><b>Offset</b></td><td><b>Byte</b></td><td><b>Beschreibung</b></td></tr>
+            <tr bgcolor="#F0F0F0"><td>0</td><td>1</td><td>Konstante 12</td></tr>
+            <tr bgcolor="#F0F0F0"><td>1</td><td>1</td><td>Sichtbar (0=nein, 1=ja)</td></tr>
+            <tr bgcolor="#F0F0F0"><td>2</td><td>12</td><td>Name</td></tr>
+            <tr bgcolor="#F0F0F0"><td>14</td><td>1</td><td>Parallax X</td></tr>
+            <tr bgcolor="#F0F0F0"><td>15</td><td>1</td><td>Parallax Y</td></tr>
+            <tr bgcolor="#F0F0F0"><td>16</td><td>4</td><td>Position X</td></tr>
+            <tr bgcolor="#F0F0F0"><td>20</td><td>4</td><td>Position Y</td></tr>
+            <tr bgcolor="#F0F0F0"><td>24</td><td>4</td><td>Radius X</td></tr>
+            <tr bgcolor="#F0F0F0"><td>28</td><td>4</td><td>Radius Y</td></tr>
+            <tr bgcolor="#E0E0E0"><td><br></td><td><br></td><td>Gesamtl&auml;nge 32 Byte</td></tr>
+          </table>
+
+        </td>
+      </tr>
+
+
+    </table>
+  </body>
+</html>

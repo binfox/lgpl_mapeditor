@@ -1,0 +1,63 @@
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="format.css">
+  </head>
+  <body bgcolor="#FFFFFF" text="#000000" link="#000000" vlink="#000000" alink="#000000">
+
+
+    <table width="100%" border="0" cellpadding="5" cellspacing="0">
+
+
+      <tr><td background="../image/line.jpg" style="background-repeat:repeat-y;"><b>Blitzbasic mapengine function</b></td></tr>
+      <tr>
+        <td valign="top">
+          error=<font color=red><b>map_load</b></font> (name$, passw$ [,check])
+        </td>
+      </tr>
+
+
+      <tr><td><br></td></tr>
+      <tr><td background="../image/line.jpg" style="background-repeat:repeat-y;"><b>Description</b></td></tr>
+      <tr>
+        <td valign="top">
+          This function load map-file with all objects and all images. At first, this function call map_reset() and remove all map-data and map-images from memory. At next it check map-checksum and open map-file (if possible) and load all data.<br><br>
+          Use map_draw() to draw a map or map_reset() to remove map.
+        </td>
+      </tr>
+
+
+      <tr><td><br></td></tr>
+      <tr><td background="../image/line.jpg" style="background-repeat:repeat-y;"><b>Parameter</b></td></tr>
+      <tr>
+        <td valign="top">
+
+          <table border="0" cellpadding="0" cellspacing="0">
+            <tr><td valign="top" nowrap>name$</td><td valign="top">=</td><td valign="top">map file name$</td></tr>
+            <tr><td valign="top" nowrap>passw$</td><td valign="top">=</td><td valign="top">map password</td></tr>
+            <tr><td valign="top" nowrap>check</td><td valign="top">=</td><td valign="top">checksum (0=no, 1=yes), default=0</td></tr>
+          </table>
+
+        </td>
+      </tr>
+
+
+      <tr><td><br></td></tr>
+      <tr><td background="../image/line.jpg" style="background-repeat:repeat-y;"><b>Return value</b></td></tr>
+      <tr>
+        <td valign="top">
+error code:<br>
+0=ok<br>
+1=file not found<br>
+2=file size corrupted<br>
+3=no read access<br>
+4=not valid file<br>
+5=checksum problem<br>
+6=password problem<br>
+7=load image problem (error code 7 do not free data or images!!!)<br>
+        </td>
+      </tr>
+
+
+    </table>
+  </body>
+</html>

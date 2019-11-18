@@ -1,0 +1,52 @@
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="format.css">
+  </head>
+  <body bgcolor="#FFFFFF" text="#000000" link="#000000" vlink="#000000" alink="#000000">
+
+
+    <table width="100%" border="0" cellpadding="5" cellspacing="0">
+
+
+      <tr><td background="../image/line.jpg" style="background-repeat:repeat-y;"><b>Encryption</b></td></tr>
+      <tr>
+        <td valign="top">
+          Map editor calculates MD5- and SHA1-fingerprints from your password. This can be done in only one direction. It isn't possible to uncover the original password (only with brute force).<br><br>
+
+          The SHA1-fingerprint is 20 bytes long and is stored in the map-file. SHA1 is used only to check the password.<br><br>
+
+          We need the MD5-fingerprint to generate a 16 byte key. Next, we generate 15 new fingerprints - every time from the last used fingerprint. This way, we get a 256 byte long key.<br><br>
+
+          The map file should be XORed with this key (result = byte XOR key). After the last (256th) character, you use the first character again (rotation).<br><br>
+         
+          The following code (written in BlitzBasic) generates the encryption-table:<br>
+
+<table width="100%" border="0" cellpadding="5" cellspacing="0">
+<tr><td background="../image/green.jpg" style="background-repeat:repeat-y;">
+<pre>key$=md5$(passw$)
+For j=0 To 15
+  For i=0 To 15
+    pos=(j*16+i)/4
+    ascii=Asc(Mid$(key$,i+1,1))
+    byte=ascii Shl ((i Mod 4)*8)
+    crypt_table(pos)=crypt_table(pos) Or byte
+  Next
+  key$=md5$(key$)
+Next</pre>
+</td></tr></table>
+
+        </td>
+      </tr>
+      <tr><td><br></td></tr>
+
+      <tr><td background="../image/line.jpg" style="background-repeat:repeat-y;"><b>Limitations</b></td></tr>
+      <tr>
+        <td valign="top">
+          1) The map loader decrypts the file to a temp-directory, but you can modify the source and decrypt maps directly to memory.<br><br>
+          2) It is possible for someone to read your password from the EXE-file. Please use an algorithm to generate the password at runtime.
+        </td>
+      </tr>
+
+    </table>
+  </body>
+</html>

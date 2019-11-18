@@ -1,0 +1,131 @@
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="format.css">
+  </head>
+  <body bgcolor="#FFFFFF" text="#000000" link="#000000" vlink="#000000" alink="#000000">
+
+
+    <table width="100%" border="0" cellpadding="5" cellspacing="0">
+
+
+      <tr><td background="../image/line.jpg" style="background-repeat:repeat-y;"><b>Sourcecode</b></td></tr>
+      <tr>
+        <td valign="top">
+
+          This text was wrote for BlitzBasic-source code. But with some luck, you can use this for sources written in other languages. Notice: source code for other languages are projects from other programmers.
+
+        </td>
+      </tr>
+      <tr><td><br></td></tr>
+
+
+      <tr><td background="../image/line.jpg" style="background-repeat:repeat-y;"><b>Include mapengine</b></td></tr>
+      <tr>
+        <td valign="top">
+
+          You find complete mapengine in directory "Source\BlitzBasic\Mapengine". Copy this directory to another place. Use preview_bb2d.bb-file as template - copy also this file. This line is very important:<br><br>
+          Include "mapengine\mapengine.bb"<br><br>
+          This program was wrote in BBplus - but you can run it also in BB2D or BB3D. Commands LoadImage and LoadAnimImage have each new parameter in BBplus. If this program do not start, modify only this lines (with errors) - remove only last parameter ",2".
+
+        </td>
+      </tr>
+      <tr><td><br></td></tr>
+
+
+      <tr><td background="../image/line.jpg" style="background-repeat:repeat-y;"><b>Find and manipulate object</b></td></tr>
+      <tr>
+        <td valign="top">
+          After you load a map-file with map_load()-function, you can identify object at they names. Use this functions:<br><br>
+obj.layer=layer_find("obj")<br>
+or<br>
+obj.geo=geo_find("obj")<br><br>
+
+Typicaly, you should find objects only one time after loading a map-file. Later, you can access identified objects and manipulate object properties:<br><br>
+
+<b>obj\ascii</b><br>All objects: Metadata is stored as binary (0) or ascii (1) data. You must convert metadata manually to a string!<br><br>
+<b>obj\bank1</b><br>Layer: Memory bank handle to basedata. Basedata  contain tile-values, which are used to draw a layer.<br><br>
+<b>obj\bank2</b><br>Layer: Memory bank handle to datalayer.<br><br>
+<b>obj\bank3</b><br>All objects: Memory bank handle to metadata.<br><br>
+<b>obj\bank4</b><br>All objects: Memory bank handle to variables.<br><br>
+<b>obj\code</b><br>All objects: Type of object (1=map, 2=iso1, 3=iso2, 4=hex1, 5=hex2, 6=clone, 7=image, 8=block, 9=point, 10=line, 11=rect, 12=oval)<br><br>
+<b>obj\depth1</b><br>Layer: Basedata-depth in bit<br><br>
+<b>obj\depth2</b><br>Layer: Datalayer-depth in bit<br><br>
+<b>obj\frame</b><br>Image or block: Frame number (hardcoded)<br><br>
+<b>obj\layer</b><br>Clone or block: Layer handle to reference object<br><br>
+<b>obj\mask</b><br>Map, image or block: Masked graphic off (0) or on (1)<br><br>
+<b>obj\mode</b><br>Image or block: Animation mode (0=default, 1=paused, 2=forward, 3=backward)<br>Map-layer: endless layer repeat (0=no, 1=yes)<br><br>
+<b>obj\name$</b><br>All objects: Object name<br><br>
+<b>obj\parax</b><br>Block: Adjustment X<br>Other objects: Parallax X-value<br><br>
+<b>obj\paray</b><br>Block: Adjustment Y<br>Other objects: Parallax Y-value<br><br>
+<b>obj\posx</b><br>Block: Tile coordinate X<br>Other objects: Pixel coordinate X<br><br>
+<b>obj\posy</b><br>Block: Tile coordinate Y<br>Other objects: Pixel coordinate Y<br><br>
+<b>obj\sizex</b><br>Layer: Layer width in tiles<br>Line: Endpoint X<br>Rect: Object width<br>Oval: Radius X<br><br>
+<b>obj\sizey</b><br>Layer: Layer height in tiles<br>Line: Endpoint Y<br>Rect: Object height<br>Oval: Radius Y<br><br>
+<b>obj\start</b><br>Iso2, hex1 oder hex2: Tile shift (0/1)<br>Image or block: Animation start frame<br><br>
+<b>obj\tile</b><br>Layer, image or block: Tileset handle<br><br>
+<b>obj\time</b><br>Image or block: Last millisecs value used for independent animation timing (TMP)<br><br>
+<b>obj\tmp</b><br>Image or block: Last frame value used for independent animation timing (TMP)<br><br>
+<b>obj\visible</b><br>All Objects: Object invisible (0) or visible (1)
+
+        </td>
+      </tr>
+      <tr><td><br></td></tr>
+
+
+
+      <tr><td background="../image/line.jpg" style="background-repeat:repeat-y;"><b>Background</b></td></tr>
+      <tr>
+        <td valign="top">
+
+          Background-data is not stored as a object. You find all data in global variables included in map.bb-file. All variables begin with prefix "map_". Names are identical with object-properties (see above).
+
+        </td>
+      </tr>
+      <tr><td><br></td></tr>
+
+
+
+      <tr><td background="../image/line.jpg" style="background-repeat:repeat-y;"><b>Steps for beginner</b></td></tr>
+      <tr>
+        <td valign="top">
+
+          <b>First steps</b><br>
+          1) use map_load() to load map-file and map-images<br>
+          2) check returned value for errors<br>
+          3) identify all important objects<br><br>
+
+          <b>Main loop</b><br>
+          1) modify object position (layer\posx, layer\posy)<br>
+          2) modify camera position with map_scroll()<br>
+          3) update animations with tile_animate()<br>
+          4) use CLS or draw background graphics, if needed<br>
+          5) draw map width map_draw()<br>
+          6) draw overlay graphics<br>
+          7) use FLIP<br><br>
+
+          <b>How to convert mouse coordinate to tile position</b><br>
+          1) get mouse coordinates<br>
+          2) use layer_map_coord, layer_iso1_coord etc. commands<br><br>
+
+          <b>How to convert global object coordinate to tile position</b><br>
+          1) get global object coordinates<br>
+          2) convert global coordinates with map_getscreen()<br>
+          3) use layer_map_coord(), layer_iso1_coord() etc. commands<br><br>
+
+          <b>How to read out tile value</b><br>
+          1) calculate tile coordinate<br>
+          2) use layer_getcode() and layer_getvalue() to read tile value<br>
+          Tip) use layer_setvalue to set tile value<br><br>
+
+          <b>How to read out data value</b><br>
+          1) calculate tile coordinate<br>
+          2) use layer_getdata() to read data value<br>
+          Tip) use layer_setdata to set data value
+
+        </td>
+      </tr>
+
+
+    </table>
+  </body>
+</html>

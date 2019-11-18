@@ -1,0 +1,74 @@
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="format.css">
+  </head>
+  <body bgcolor="#FFFFFF" text="#000000" link="#000000" vlink="#000000" alink="#000000">
+
+
+    <table width="100%" border="0" cellpadding="5" cellspacing="0">
+
+
+      <tr><td background="../image/line.jpg" style="background-repeat:repeat-y;"><b>Tileset editor</b></td></tr>
+      <tr>
+        <td valign="top">
+
+          <img src="../image/modul1.gif">
+
+          Tileset editor is an important part of map editor. Always begin by creating a new tileset. A tileset is not only a collection of frames - you can assign animations and some other information to each tileset. It doesn't matter what kind of tiles you use (rectangle, isometric or hexagonal).<br><br>
+
+          After loading an image, the program cuts your image into small pieces. These pieces are called frames or tiles. The first thing you need to do is set the tile width and tile height even before you add animations. You can see all of the frames on the left side. Note: if the tile depth (4,8,12, or 16 bit) of any layers this tileset is assigned to is not set high enough, some tiles may not be assigned a frame number.  In such a case, you will have to increase the layer depth of that layer.<br><br>
+
+          Map editor automatically sets the mask color. This always works with iso/hex tiles. But if it doesn't work with rectangular tiles then change it manually.<br><br>
+
+          Map editor supports animated tiles. It is very easy to create an animation. Click on the plus-icon and set the animation length with the arrow icons. Select a tile from the left menu and left click on your animation strip to set each frame. To select an animation frame - use the <u>right</u> mouse button.<br><br>
+
+          Note: Adding/removing animations needs a complete map checkup - and, if needed, a layer-recalculation. All animations are dynamically hardcoded into the map file. This way you can save some memory.<br><br>
+
+          Note: If an animation frame has an incorrect value (this may happen after changing the tile size), you will see the frame filled in with red. This information will be lost if you save your map file.<br><br>
+
+          Note: Every image can only be used one time as a tileset. And you can only load images from the same directory that your map file is located in. Tile sizes are limited from 8 to 500 pixels.<br><br>
+
+          <img src="image/tileset.gif"><br><br>
+
+        </td>
+      </tr>
+
+      <tr><td background="../image/line.jpg" style="background-repeat:repeat-y;"><b>Control Elements</b></td></tr>
+
+      <tr>
+        <td valign="top">
+
+
+          <b>Imagefile:</b><br>
+          Select a tileset here (must have been previously loaded with load-icon). Green circle = image loaded, Red circle = can't load image.<br><br>
+
+          <b>Tilewidth:</b><br>
+          Select the tile width. Only possible values are shown (if the tile width you wish to have is not shown in the list then check to make sure that the image width is divisible by the tile width).<br><br>
+
+          <b>Tileheight:</b><br>
+          Select the tile height. Only possible values are shown (if the tile height you wish to have is not shown in the list then check to make sure that the image height is divisible by the tile height).<br><br>
+
+          <b>Y-factor:</b><br>
+          This value sets the depth of "3D-tiles" - or the difference between the standard tile height. (In this way, you can create a layer that appears to have depth. Imagine a group of dominoes laid down, placed tightly side by side and viewed from a 45 degree angle. You would only be able to see the sides of the dominoes that are closest to you.) Image- and block-objects ignore this value. The default value is 0.<br><br>
+
+          <b>Maskcolor:</b><br>
+          Set the mask color of the tileset here.<br><br>
+
+          <b>Default:</b><br>
+          You can add to each tile or each animation a bytevalue in tileset-editor (0-255). You can read out this default tile values in your game. Optionaly, draw automaticaly this values to datalayer (see setup-dialog).<br><br>
+
+          <b>Animation:</b><br>
+          Choose an animation mode (paused, forward, backward) for the currently selected animation.<br><br>
+
+          <b>Startframe:</b><br>
+          Set the currently selected animations starting frame.<br><br>
+
+          <b>Time:</b><br>
+          Set the animation delay time for the currently selected frame. Note that you can set different values to each frame. A value of 0 means that the animation pauses on this frame. The arrow button on the right side sets all of the frames of the currently selected animation to the current value.
+
+        </td>
+      </tr>
+
+    </table>
+  </body>
+</html>

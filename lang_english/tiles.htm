@@ -1,0 +1,85 @@
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="format.css">
+  </head>
+  <body bgcolor="#FFFFFF" text="#000000" link="#000000" vlink="#000000" alink="#000000">
+
+
+    <table width="100%" border="0" cellpadding="5" cellspacing="0">
+
+
+      <tr><td background="../image/line.jpg" style="background-repeat:repeat-y;"><b>Tile shapes</b></td></tr>
+      <tr>
+        <td valign="top">
+          Map editor supports different tile shapes. It accepts all rectangular shapes without problems, but you can also use 3 isometric and 3 hexagonal shapes. These shapes can have different tile sizes. For creating clean maps, please only use shapes from the following specifications, or use Tile maker to create perfect shapes.<br><br>
+        </td>
+      </tr>
+
+
+      <tr><td background="../image/line.jpg" style="background-repeat:repeat-y;"><b>Isometric 1 (standard)</b></td></tr>
+      <tr>
+        <td valign="top">
+          Most used isometric tile - you can find these in most tutorials. The left/right edges are pointed - upper/lower edges are flat.<br><br>
+          Definition: Tile width is divisible by 4. Height is 1 pixel less than half of the width.<br><br>
+          Formula: Width/2-1=Height<br><br>
+          <img src="../image/tile_iso1.gif"><br><br>
+        </td>
+      </tr>
+
+
+      <tr><td background="../image/line.jpg" style="background-repeat:repeat-y;"><b>Isometric 2 (alternative)</b></td></tr>
+      <tr>
+        <td valign="top">
+          Symmetrical tile shape - you can easily draw these or convert them from normal images. The left/right edges are blunt.<br><br>
+          Definition: Tile width is divisible by 4, if you add 2 pixels. Height is 1 pixel greater than half of the width.<br><br>
+          Formula: Width/2+1=Height<br><br>
+          <img src="../image/tile_iso2.gif"><br><br>
+        </td>
+      </tr>
+
+      <tr><td background="../image/line.jpg" style="background-repeat:repeat-y;"><b>Isometric 3 (without perspective)</b></td></tr>
+      <tr>
+        <td valign="top">
+          Seldom used tile shape. It is only of interest if you use graphics without perspective.<br><br>
+          Definition: Tile width is divisible by 2. Height is 1 pixel less than width.<br><br>
+          Formula: Width-1=Height<br><br>
+          <img src="../image/tile_iso3.gif"><br><br>
+        </td>
+      </tr>
+
+      <tr><td background="../image/line.jpg" style="background-repeat:repeat-y;"><b>Hexagonal 1 (standard)</b></td></tr>
+      <tr>
+        <td valign="top">
+          Often used tile - with perspective. Hexagonal 1 and isometric 2 have the same size.<br><br>
+          Definition: Tile width is divisible by 4, if you add 2 pixels. Height is 1 pixel greater than half of the width. Note: the width is variable - you can stretch this a bit (but should have a size other than hexagonal 2).<br><br>
+          Formula: Width/2+1=Height<br><br>
+          <img src="../image/tile_hex1.gif"><br><br>
+        </td>
+      </tr>
+
+
+      <tr><td background="../image/line.jpg" style="background-repeat:repeat-y;"><b>Hexagonal 2 (alternative)</b></td></tr>
+      <tr>
+        <td valign="top">
+          Regular hexagon. Direct view from top. Most used hex-shape.<br><br>
+          Definition: Width is divisible by 2 and height is divisible by 4.<br><br>
+          Formula: Width=Int((Height/2)/Sin#(60))*2<br><br>
+          <img src="../image/tile_hex2.gif"><br><br>
+        </td>
+      </tr>
+
+
+      <tr><td background="../image/line.jpg" style="background-repeat:repeat-y;"><b>Hexagonal 3 (rotated)</b></td></tr>
+      <tr>
+        <td valign="top">
+          Regular hexagon. Direct view from top. Seldom used hex-shape. You can't compress the tile height.<br><br>
+          Definition: Width is divisible by 4 and height is divisible by 2.<br><br>
+          Formula: Height=Int((Width/2)/Sin#(60))*2<br><br>
+          <img src="../image/tile_hex3.gif">
+        </td>
+      </tr>
+
+
+    </table>
+  </body>
+</html>

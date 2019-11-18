@@ -1,0 +1,71 @@
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="format.css">
+  </head>
+  <body bgcolor="#FFFFFF" text="#000000" link="#000000" vlink="#000000" alink="#000000">
+
+
+    <table width="100%" border="0" cellpadding="5" cellspacing="0">
+
+
+      <tr><td background="../image/line.jpg" style="background-repeat:repeat-y;"><b>Tileset Editor</b></td></tr>
+      <tr>
+        <td valign="top">
+
+          <img src="../image/modul1.gif">
+          Tileset Editor ist das Herzstück dieses Programms. Beginne neue Karten zuerst mit der Erstellung von Tilesets. Ein Tileset enthält nicht nur Einzelframes, sondern auch noch Animationen und einige andere Infos. Dabei ist es zunächst egal, ob diese Tiles für rechteckige, isometrische oder hexagonale Layer verwendet werden.<br><br>
+
+          Nach Importierung einer Grafikdatei wird diese in kleine Stückchen aufgeteilt. Diese Stückchen werden auch Frames oder Tiles genannt. Tilebreite und Tilehöhe kann nun eingestellt werden. Dies sollte unbedingt zuerst gemacht werden! Alle Tiles werden dann links im Menü dargestellt. Maskierung wird automatisch eingestellt (klappt bei Iso/Hex immer). Bei rechteckigen Tiles kann die Automatik manchmal versagen - dann kann es manuell nachgestellt werden.<br><br>
+
+          Der Map Editor unterstützt animierte Tiles. Diese können sehr einfach angelegt werden. Klicke auf Plus-Symbol und stelle dann gewünschte Animationslänge mit Pfeilsymbolen ein. Wähle mit der linken Maustaste ein Tile aus dem linken Menü und klicke dann mit der linken Maustaste auf ein Animationsframe. Um ein Animationsframe normal auszuwählen wird <u>rechte</u> Maustaste benutzt.<br><br>
+
+          Wichtiger Hinweis: Beim Hinzufügen/Entfernen von Animationen wird die Karte komplett untersucht und bei Bedarf neukalkuliert. Dieser Vorgang kann bei großen Karten einige Sekunden dauern. Dies kommt daher, weil Animationen dynamisch behandelt werden. Dadurch werden keine Zahlenräume verschwendet, wodurch wiederum mehr Tiles gespeichert werden können. Dies hat jedoch diesen Nachteil und einen höheren Overhead dei der Abfragung zur Folge.<br><br>
+
+          Wichtiger Hinweis: Falls ein Animationframe plötzlich einen ungültigen Wert besitzen sollte (passiert etwa nach Änderung der Tilegröße), dann werden diese Felder rosa angezeigt. Erst nach dem Speichern gehen diese Informationen endgültig verloren.<br><br>
+
+          Wichtiger Hinweis: Aus einer Grafikdatei kann nur ein Tileset erstellt werden. Grafikdateien können nur aus dem Verzeichnis geladen werden, wo die MAP-Datei gespeichert wurde. Tilegröße ist auf 8-500 Pixel begrenzt.<br><br>
+
+          <img src="image/tileset.gif"><br><br>
+
+        </td>
+      </tr>
+
+      <tr><td background="../image/line.jpg" style="background-repeat:repeat-y;"><b>Bedienelemente</b></td></tr>
+
+      <tr>
+        <td valign="top">
+
+
+          <b>Grafikdatei:</b><br>
+          Auswahl aller Tilesets nach Dateiname (alphabetisch sortiert). Grüner Punkt bedeutet: Bild konnte geladen werden. Roter Punkt bedeutet: Bild konnte nicht geladen werden.<br><br>
+
+          <b>Tilebreite:</b><br>
+          Tilebreite-Auswahl (nur mögliche Teilungen).<br><br>
+
+          <b>Tilehöhe:</b><br>
+          Tilehöhe-Auswahl (nur mögliche Teilungen).<br><br>
+
+          <b>Y-Korrektur:</b><br>
+          Dieser Wert gibt die Dicke eines "3D-Tiles" an - oder besser gesagt die Abweichung von Normhöhe. Dadurch können räumlich aussehende Layer erstellt werden. Bild oder Blockobjekte ignorrieren diesen Wert. Standardwert ist 0.<br><br>
+
+          <b>Maskierung:</b><br>
+          Hier kann Maskierfarbe eines Tilesets eingestellt werden.<br><br>
+
+          <b>Standard:</b><br>
+          Jedem Tile oder jeder Animation im Tileset-Editor kann ein Bytewert zugewiesen werden (0-255). Dieser Standardtilewert kann im Spiel auch ausgelesen werden. Optional dazu können Datenlayer automatisch mit Werten gefüllt werden (siehe Einstellungen).<br><br>
+
+          <b>Animation:</b><br>
+          Hier kann Animationsart ausgewählt werden (Pause, Vorwärts, Rückwärts).<br><br>
+
+          <b>Startframe:</b><br>
+          Hier kann Animations-Startframe ausgewählt werden.<br><br>
+
+          <b>Zeit:</b><br>
+          Gebe hier die Animation-Geschwindigkeit in msec. ein. Beachte, dass man jedem Frame einen anderen Wert zuweisen kann! Der Wert 0 hat eine besondere Bedeutung. An so einem Frame wird die Animation autom. angehalten. Der Pfeil neben der Eingabebox weist den gerade eingegebenen Wert allen Frames dieser Animation zu.
+
+        </td>
+      </tr>
+
+    </table>
+  </body>
+</html>

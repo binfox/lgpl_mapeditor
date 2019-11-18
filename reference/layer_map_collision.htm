@@ -1,0 +1,57 @@
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="format.css">
+  </head>
+  <body bgcolor="#FFFFFF" text="#000000" link="#000000" vlink="#000000" alink="#000000">
+
+
+    <table width="100%" border="0" cellpadding="5" cellspacing="0">
+
+
+      <tr><td background="../image/line.jpg" style="background-repeat:repeat-y;"><b>Blitzbasic mapengine function</b></td></tr>
+      <tr>
+        <td valign="top">
+          coll=<font color=red><b>layer_map_collision</b></font> (layer.layer, spritex, spritey, sprite [,spriteframe])
+        </td>
+      </tr>
+
+
+      <tr><td><br></td></tr>
+      <tr><td background="../image/line.jpg" style="background-repeat:repeat-y;"><b>Description</b></td></tr>
+      <tr>
+        <td valign="top">
+          This function check pixel perfect collision between image and map-layer. You need layer type handle (search with layer_find).<br><br>
+          To check a collision between image-layer and map-layer, please use layer_image_collision().
+        </td>
+      </tr>
+
+
+      <tr><td><br></td></tr>
+      <tr><td background="../image/line.jpg" style="background-repeat:repeat-y;"><b>Parameter</b></td></tr>
+      <tr>
+        <td valign="top">
+
+          <table border="0" cellpadding="0" cellspacing="0">
+            <tr><td valign="top" nowrap>layer.layer</td><td valign="top">=</td><td valign="top">layer type handle</td></tr>
+            <tr><td valign="top" nowrap>spritex</td><td valign="top">=</td><td valign="top">screen coordinate x</td></tr>
+            <tr><td valign="top" nowrap>spritey</td><td valign="top">=</td><td valign="top">screen coordinate y</td></tr>
+            <tr><td valign="top" nowrap>sprite</td><td valign="top">=</td><td valign="top">image handle</td></tr>
+            <tr><td valign="top" nowrap>spriteframe</td><td valign="top">=</td><td valign="top">image frame (default=0)</td></tr>
+          </table>
+
+        </td>
+      </tr>
+
+
+      <tr><td><br></td></tr>
+      <tr><td background="../image/line.jpg" style="background-repeat:repeat-y;"><b>Return value</b></td></tr>
+      <tr>
+        <td valign="top">
+          0=no collision<br>1=collision
+        </td>
+      </tr>
+
+
+    </table>
+  </body>
+</html>

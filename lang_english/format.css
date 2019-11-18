@@ -1,0 +1,12 @@
+body {font-family: verdana, arial; font-size:10pt;
+scrollbar-arrow-color:     #333333;
+scrollbar-face-color:      #CCCCCC;
+scrollbar-highlight-color: #FFFFFF;
+scrollbar-shadow-color:    #FFFFFF;
+scrollbar-3dlight-color:   #FFFFFF;
+scrollbar-track-color:     #FFFFFF; 
+scrollbar-darkshadow-color:#FFFFFF;}
+a:link, a:visited, a:active, a:hover {text-decoration:none;}
+td   {font-family: verdana, arial; font-size:10pt;}
+font {font-family: verdana, arial; font-size:10pt;}
+ul, li {margin-top:0px; margin-bottom:0px; line-height:16px; margin-left:8px;}

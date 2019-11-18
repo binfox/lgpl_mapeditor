@@ -1,0 +1,32 @@
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="format.css">
+  </head>
+  <body bgcolor="#FFFFFF" text="#000000" link="#000000" vlink="#000000" alink="#000000">
+
+
+    <table width="100%" border="0" cellpadding="5" cellspacing="0">
+
+
+      <tr><td background="../image/line.jpg" style="background-repeat:repeat-y;"><b>Tools</b></td></tr>
+      <tr>
+        <td valign="top">
+          All tools are universal and work with frames, animations or datalayers. Most tools can only be used with layers and you will not see any changes to image objects or geometrical objects. Note: You can pick a tile with the right mouse button.<br><br>
+
+          <table border="0" cellpadding="1" cellspacing="0">
+            <tr valign=top><td><img src="../image/tool1.gif"></td><td><b>Select</b>   <br>Selects an object directly from the editor. Geometrical objects have highest prority - layer objects have lowest priority. You can also move objects or modify the size of geometrical objects by holding down the left-control-key while clicking/dragging.<br><br></td></tr>
+            <tr valign=top><td><img src="../image/tool2.gif"></td><td><b>Mark</b>     <br>Marks a rectangular area. This only works with layer objects. Use cut/copy/paste functions once you have selected something.<br><br></td></tr>
+            <tr valign=top><td><img src="../image/tool3.gif"></td><td><b>Draw</b>     <br>Draws the selected tile into a layer. You can click or drag the mouse to draw.<br><br></td></tr>
+            <tr valign=top><td><img src="../image/tool4.gif"></td><td><b>Rect</b>     <br>Draws a rectangular border (an outline) into a layer.<br><br></td></tr>
+            <tr valign=top><td><img src="../image/tool5.gif"></td><td><b>Block</b>    <br>Draws a rectangular block into a layer. The selected area is filled with the selected tile.<br><br></td></tr>
+            <tr valign=top><td><img src="../image/tool6.gif"></td><td><b>Sequence</b> <br>Draws a rectangular block into a layer. The selected area is filled with more than one tile. At every step the map editor increases the frame number.<br><br></td></tr>
+            <tr valign=top><td><img src="../image/tool7.gif"></td><td><b>Fill</b>     <br>Fills the area clicked on by overwriting similar tiles with the selected tile. This action may take a few seconds on large maps.<br><br></td></tr>
+            <tr valign=top><td><img src="../image/tool8.gif"></td><td><b>Magic pen</b><br>Similar to the Draw tool but manipulates neighboring tiles. If the neighboring tiles value is lower, the map editor sets the neighboring tile to the ((selected tile)-1) tile. If the neighboring tiles value is higher, the map editor sets the neighboring tile to the ((selected tile)+1) tile. You need a special tileset for this tool for best results. This tool also works on datalayers.</td></tr>
+          </table>
+
+        </td>
+      </tr>
+
+    </table>
+  </body>
+</html>

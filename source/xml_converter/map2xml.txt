@@ -1,0 +1,56 @@
+map2xml.php v1.1 - Converts MAPEDITOR's .map files to .xml
+Free software (LGPL) - Copyleft 2004, 2005 Alexandre v't Westende
+-----------------------------------------------------------------
+
+This is map2xml.php v1.1 documentation. 
+
+First of all this program is free software, which means you can 
+redistribute it freely and change its source code provided you 
+respect the LGPL terms (see file LICENSE.TXT)
+
+
+CONTENT
+---------
+This package should contain the following files and directories:
+
+map2xml.txt		This file
+map2xml_local.php	The map to xml local converter
+map2xml.php		The map to xml internet converter
+LICENSE.TXT		The GNU Lesser Public General License
+
+data/			Where you put your .map files
+
+class/			The parsing library
+class/Animation.inc
+class/Background.inc
+class/BinaryData.inc
+class/Layer.inc
+class/Map.inc
+class/Tileset.inc
+
+
+USAGE (local)
+-------
+1. Publish those files on a web server (e.g. Apache server).
+2. put map files in the data/ directory (or change the $CIRCUITDIR 
+   variable in the map2xml.php file)
+3. Enter the URL to your file (e.g. http://localhost/map2xml_local.php)
+4. Choose the map to parse, check "Show XML" and click on OK.
+5. Copy/paste the XML content at the end of your page.
+
+If you want to use the Internet version, simply use the map2xml.php file.
+
+You can also use the library in the class/ directory to parse a .map 
+file for a different purpose. In this case you can use the map2xml.php 
+file as an example.
+
+
+MISC.
+---------
+Many thanks to the programmer of the MapEditor program
+(http://www.blitzbase.de/_mapeditor/usa_home.htm) for allowing me to write 
+this tool and for sending me a Proversion of MapEditor :*)
+
+Sorry for the poor documentation, I can develop it any further if asked.
+
+Contact me at alex@vegagames.net

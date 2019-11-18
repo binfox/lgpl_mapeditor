@@ -1,0 +1,132 @@
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="format.css">
+  </head>
+  <body bgcolor="#FFFFFF" text="#000000" link="#000000" vlink="#000000" alink="#000000">
+
+
+    <table width="100%" border="0" cellpadding="5" cellspacing="0">
+
+
+      <tr><td background="../image/line.jpg" style="background-repeat:repeat-y;"><b>Quellcode</b></td></tr>
+      <tr>
+        <td valign="top">
+          Dieser Text ist idealerweise für BlitzBasic-Codes gedacht. Kann zum Teil aber auch bei anderen Programmiersprachen in ähnlicher Weise hilfreich sein. Hinweis: Quellcodes zu anderen Programmiersprachen sind Projekte anderer Programmierer.
+
+        </td>
+      </tr>
+      <tr><td><br></td></tr>
+
+
+      <tr><td background="../image/line.jpg" style="background-repeat:repeat-y;"><b>Mapengine einbauen</b></td></tr>
+      <tr>
+        <td valign="top">
+
+          Die fix und fertige Mapengine befindet sich im Ordner "Source\BlitzBasic\Mapengine". Kopiere den ganzen Ordner in ein anderes Verzeichnis. Die Datei preview_bb2d.bb kann auch als Vorlage genommen werden - kopiere diese Datei ebenfalls. Wichtig ist diese Zeile:<br><br>
+          Include "mapengine\mapengine.bb"<br><br>
+          Der Code ist mit BBplus geschrieben, ist aber auch für BB2D und BB3D geeignet. Die Befehle LoadImage und LoadAnimImage haben in BBplus einen zusätzlichen Parameter am Ende. Falls das Programm in BB2D/BB3D nicht starten will, entferne einfach den letzten Parameter ",2" bei den genannten Befehlen.
+
+        </td>
+      </tr>
+      <tr><td><br></td></tr>
+
+
+      <tr><td background="../image/line.jpg" style="background-repeat:repeat-y;"><b>Objekt finden und manipulieren</b></td></tr>
+      <tr>
+        <td valign="top">
+          Nachdem eine Map-Datei mit dem der Funktion map_load() galaden wurde, können Objekte an dem Namen identifiziert werden. Benutze dazu diese Funktionen:<br><br>
+          obj.layer=layer_find("obj")<br>
+          oder<br>
+          obj.geo=geo_find("obj")<br><br>
+
+
+
+Typischerweise werden wichtige Objekte nur 1x nach dem Laden gesucht, um diese eindeutig zu identifizieren. Nun kann man auf das identifizierte Objekt 'obj' zugreifen und Eigenschaften manipulieren:<br><br>
+
+<b>obj\ascii</b><br>Alle Objekte: Ermittelt, ob Metadaten als Binär (0) oder Ascii (1) vorliegen. Hinweis: Ascii-Daten sollen dann noch manuell nach String konvertiert werden!<br><br>
+<b>obj\bank1</b><br>Layer: Memory Bank Handle zu Basisdaten. Basisdaten enthalten Tile-Werte, nach denen ein Layer gezeichnet wird.<br><br>
+<b>obj\bank2</b><br>Layer: Memory Bank Handle zu Datenlayer.<br><br>
+<b>obj\bank3</b><br>Alle Objekte: Memory Bank Handle zu Metadaten.<br><br>
+<b>obj\bank4</b><br>Alle Objekte: Memory Bank Handle zu Variablen.<br><br>
+<b>obj\code</b><br>Alle Objekte: Objektart (1=Map, 2=Iso1, 3=Iso2, 4=Hex1, 5=Hex2, 6=Klon, 7=Bild, 8=Block, 9=Punkt, 10=Linie, 11=Rechteck, 12=Oval)<br><br>
+<b>obj\depth1</b><br>Layer: Basisdaten-Tiefe in Bit<br><br>
+<b>obj\depth2</b><br>Layer: Datenlayer-Tiefe in Bit<br><br>
+<b>obj\frame</b><br>Bild oder Block: Framenummer (hartcodiert)<br><br>
+<b>obj\layer</b><br>Klon oder Block: Layer-Handle zu einem Referenzobjekt<br><br>
+<b>obj\mask</b><br>Map, Bild oder Block: Grafik-Maskierung aus (0) oder ein (1)<br><br>
+<b>obj\mode</b><br>Bild oder Block: Animationsmodus (0=Std, 1=Pause, 2=Vorwärts, 3=Rückwärts)<br>Map-Layer: Layerwiederholung (0=nein, 1=ja)<br><br>
+<b>obj\name$</b><br>Alle Objekte: Name eines Objekts<br><br>
+<b>obj\parax</b><br>Block: Justage X<br>Andere Objekte: Parallax X-Wert<br><br>
+<b>obj\paray</b><br>Block: Justage Y<br>Andere Objekte: Parallax Y-Wert<br><br>
+<b>obj\posx</b><br>Block: Tilekoordinate X<br>Andere Objekte: Pixelkoordinate X<br><br>
+<b>obj\posy</b><br>Block: Tilekoordinate Y<br>Andere Objekte: Pixelkoordinate Y<br><br>
+<b>obj\sizex</b><br>Layer: Layerbreite in Tiles<br>Linie: Endpunkt X<br>Rechteck: Objektbreite<br>Oval: Radius X<br><br>
+<b>obj\sizey</b><br>Layer: Layerhöhe in Tiles<br>Linie: Endpunkt Y<br>Rechteck: Objekthöhe<br>Oval: Radius Y<br><br>
+<b>obj\start</b><br>Iso2, Hex1 oder Hex2: Tile Shift aus (0) oder ein (1)<br>Bild oder Block: Startframe einer Animation<br><br>
+<b>obj\tile</b><br>Layer, Bild oder Block: Tileset-Handle<br><br>
+<b>obj\time</b><br>Bild oder Block: Letzter Millisecs-Wert bei unabhängiger Animation (TMP)<br><br>
+<b>obj\tmp</b><br>Bild oder Block: Letzter Frame-Wert bei unabhängiger Animation (TMP)<br><br>
+<b>obj\visible</b><br>Alle Objekte: Objekt unsichtbar (0) oder sichtbar (1)
+
+        </td>
+      </tr>
+      <tr><td><br></td></tr>
+
+
+
+      <tr><td background="../image/line.jpg" style="background-repeat:repeat-y;"><b>Hintergrund</b></td></tr>
+      <tr>
+        <td valign="top">
+
+          Hintergrund wird nicht als Objekt gespeichert. Alle Daten werden in globalen Variablen in Inklude Map gespeichert und beginnen mit dem Prefix "map_". Diese Variablen haben identische Bezeichnungen wie die Eigenschaften von Layer-Objekten.
+
+        </td>
+      </tr>
+      <tr><td><br></td></tr>
+
+
+
+      <tr><td background="../image/line.jpg" style="background-repeat:repeat-y;"><b>Anfängerschritte</b></td></tr>
+      <tr>
+        <td valign="top">
+
+          <b>Erste Schritte</b><br>
+          1) Benutze map_load(), um Map-Datei und Map-Grafiken zu laden<br>
+          2) Überprüfe zurückgelieferten Wert auf Fehler<br>
+          3) Identifiziere wichtige Objekte<br><br>
+
+          <b>Hauptschleife</b><br>
+          1) Modifiziere Objektpositionen (layer\posx, layer\posy)<br>
+          2) Modifiziere Kameraposition mit map_scroll()<br>
+          3) Aktualisiere Animationen mit tile_animate()<br>
+          4) Benutze CLS oder zeichne Hintergrund, falls erforderlich<br>
+          5) Zeichne komplette Karte mit map_draw() ein<br>
+          6) Zeichne Overlay-Grafiken<br>
+          7) Benutze FLIP<br><br>
+
+          <b>Mauskoordinaten nach Tile-Koordinaten konvertieren</b><br>
+          1) Bestimme Mauskoordinaten<br>
+          2) Benutze layer_map_coord(), layer_iso1_coord() usw.<br><br>
+
+          <b>Globale Objekt-Koordinaten nach Tile-Koordinaten konvertieren</b><br>
+          1) Bestimme globale Objekt-Koordinaten<br>
+          2) Konvertiere globale Koordinate mit map_getscreen()<br>
+          2) Benutze layer_map_coord(), layer_iso1_coord() usw.<br><br>
+
+          <b>Tilewert auslesen</b><br>
+          1) Bestimme Tile-Koordinate<br>
+          2) Benutze layer_getcode() und layer_getvalue(), um Tilewert auszulesen<br>
+          Tipp) Benutze layer_setvalue, um Tilewert zu setzen<br><br>
+
+          <b>Datenwert auslesen</b><br>
+          1) Bestimme Tile-Koordinate<br>
+          2) Benutze layer_getdata(), um Datenwert auszulesen<br>
+          Tipp) Benutze layer_setdata, um Datenwert zu setzen
+
+        </td>
+      </tr>
+
+
+    </table>
+  </body>
+</html>

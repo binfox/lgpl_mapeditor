@@ -1,0 +1,54 @@
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="format.css">
+  </head>
+  <body bgcolor="#FFFFFF" text="#000000" link="#000000" vlink="#000000" alink="#000000">
+
+
+    <table width="100%" border="0" cellpadding="5" cellspacing="0">
+
+
+      <tr><td background="../image/line.jpg" style="background-repeat:repeat-y;"><b>Verschlüsselung</b></td></tr>
+      <tr>
+        <td valign="top">
+          Aus einem Passwort werden MD5- und SHA1-Fingerprints errechnet. Diese Fingerprints können immer nur in eine Richtung berechnet werden. Aus einem Fingerprint kann das Passwort nicht mehr direkt ermittelt werden (nur per brute force).<br><br>
+
+          SHA1-Fingerprint ist 20 Byte lang und wird in Map-Datei gespeichert. Dies wird nur benutzt, um blitzschnell das Passwort auf Richtigkeit zu überprüfen.<br><br>
+
+          MD5-Fingerprint wird "missbraucht", um einen 16 Byte langen Schlüssel zu generieren. Selbst wenn nur ein Passwort mit paar Zeichen benutzt wird, kann ein Schlüssel sehr kryptisch aussehen.<br><br>
+
+          Aus dem letzten MD5-Fingerprint werden immer wieder neue Fingerprints berechnet, solange bis insgesamt 16 Fingerprints festliegen. Es ergibt sich ein 256 Byte langer Schlüssel!<br><br>
+
+          Alle Daten werden byteweise per XOR verschlüsselt und entschlüsselt (result=byte XOR key). Der Schlüssel wird "rotierend" eingesetzt: Nach dem letzen Zeichen folgt wieder das Erste. Der Code unten generiert eine Integer-Tabelle:<br><br>
+
+<table width="100%" border="0" cellpadding="5" cellspacing="0">
+<tr><td background="../image/green.jpg" style="background-repeat:repeat-y;">
+<pre>key$=md5$(passw$)
+For j=0 To 15
+  For i=0 To 15
+    pos=(j*16+i)/4
+    ascii=Asc(Mid$(key$,i+1,1))
+    byte=ascii Shl ((i Mod 4)*8)
+    crypt_table(pos)=crypt_table(pos) Or byte
+  Next
+  key$=md5$(key$)
+Next</pre>
+</td></tr></table>
+
+        </td>
+      </tr>
+      <tr><td><br></td></tr>
+
+
+      <tr><td background="../image/line.jpg" style="background-repeat:repeat-y;"><b>Sicherheitslücken</b></td></tr>
+      <tr>
+        <td valign="top">
+          1) Standardmässig wird eine entschlüsselte Tmp-Datei erzeugt. Eine Datei könnte jedoch auch direkt in den Speicher entschlüsselt werden. Dazu muss Map-Loader angepasst werden.<br><br>
+
+          2) Passwort steht meistens im Klartext in einer EXE drin. Es wird empfohlen einen verschleiernden Algorithmus zu schreiben, der das Passwort zur Laufzeit generiert.
+        </td>
+      </tr>
+
+    </table>
+  </body>
+</html>

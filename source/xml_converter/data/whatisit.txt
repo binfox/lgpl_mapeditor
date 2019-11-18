@@ -1,0 +1,8 @@
+Put your map files in this directory,
+
+or 
+
+change the $CIRCUITDIR variable in map2xml.php 
+to point to your data directory.
+
+Make sure the new directory is usable by apache.

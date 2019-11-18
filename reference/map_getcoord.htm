@@ -1,0 +1,55 @@
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="format.css">
+  </head>
+  <body bgcolor="#FFFFFF" text="#000000" link="#000000" vlink="#000000" alink="#000000">
+
+
+    <table width="100%" border="0" cellpadding="5" cellspacing="0">
+
+
+      <tr><td background="../image/line.jpg" style="background-repeat:repeat-y;"><b>Blitzbasic mapengine function</b></td></tr>
+      <tr>
+        <td valign="top">
+          coord=<font color=red><b>map_getcoord</b></font> (screen, para, scroll)
+        </td>
+      </tr>
+
+
+      <tr><td><br></td></tr>
+      <tr><td background="../image/line.jpg" style="background-repeat:repeat-y;"><b>Description</b></td></tr>
+      <tr>
+        <td valign="top">
+          Caculate global coordinate from screen coordinate. This function include parallax calculation for background-layers.<br><br>
+          map_getscreen() is a complement for this function.
+        </td>
+      </tr>
+
+
+      <tr><td><br></td></tr>
+      <tr><td background="../image/line.jpg" style="background-repeat:repeat-y;"><b>Parameter</b></td></tr>
+      <tr>
+        <td valign="top">
+
+          <table border="0" cellpadding="0" cellspacing="0">
+            <tr><td valign="top" nowrap>screen</td><td valign="top">=</td><td valign="top">screen coordinate (without viewport-startrange)</td></tr>
+            <tr><td valign="top" nowrap>para</td><td valign="top">=</td><td valign="top">parallax value (0-200)</td></tr>
+            <tr><td valign="top" nowrap>scroll</td><td valign="top">=</td><td valign="top">scrolled position</td></tr>
+          </table>
+
+        </td>
+      </tr>
+
+
+      <tr><td><br></td></tr>
+      <tr><td background="../image/line.jpg" style="background-repeat:repeat-y;"><b>Return value</b></td></tr>
+      <tr>
+        <td valign="top">
+          global coordinate
+        </td>
+      </tr>
+
+
+    </table>
+  </body>
+</html>

@@ -1,0 +1,85 @@
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="format.css">
+  </head>
+  <body bgcolor="#FFFFFF" text="#000000" link="#000000" vlink="#000000" alink="#000000">
+
+
+    <table width="100%" border="0" cellpadding="5" cellspacing="0">
+
+
+      <tr><td background="../image/line.jpg" style="background-repeat:repeat-y;"><b>Tileformen</b></td></tr>
+      <tr>
+        <td valign="top">
+          Der Map Editor unterstützt verschiedene Tileformen. Grundsätzlich werden alle rechteckige Formen akzeptiert. Außerdem werden 3 isometrische und 3 hexagonale Formen akzeptiert. Diese können in unterschiedlichen Größen verwendet werden. Es wird empfohlen sich an diese Vorschläge zu halten, um saubere Karten zu erstellen. Andere Variationen können evtl. nicht genau verarbeitet werden. Oder verwende einfach Tile Maker, um neue Tileformen zu erzeugen.<br><br>
+        </td>
+      </tr>
+
+
+      <tr><td background="../image/line.jpg" style="background-repeat:repeat-y;"><b>Isometrisch 1 (Standard)</b></td></tr>
+      <tr>
+        <td valign="top">
+          Solche Tiles werden in meisten Tutorials benutzt und beschrieben. Die Ecken links und rechts sind sehr spitz - oben und unten ist ein Tile dagegen stark abgeflacht.<br><br>
+          Definition: Tilebreite muss durch 4 teilbar sein. Höhe muss 1 Pixel kleiner als halbe Breite sein.<br><br>
+          Formel: Breite/2-1=Höhe<br><br>
+          <img src="../image/tile_iso1.gif"><br><br>
+        </td>
+      </tr>
+
+
+      <tr><td background="../image/line.jpg" style="background-repeat:repeat-y;"><b>Isometrisch 2 (Alternative)</b></td></tr>
+      <tr>
+        <td valign="top">
+          Solche Tiles werden seltener benutzt. Die sehen aber sehr symetrisch aus und lassen sich einfacher zeichnen oder sogar aus anderen Grafiken konvertieren. Die Ecken links und rechts sind etwas stumpf.<br><br>
+          Definition: Tilebreite muss durch 4 teilbar sein, wenn man zu der Breite 2 Pixel addiert. Höhe muss 1 Pixel größer als halbe Breite sein.<br><br>
+          Formel: Breite/2+1=Höhe<br><br>
+          <img src="../image/tile_iso2.gif"><br><br>
+        </td>
+      </tr>
+
+      <tr><td background="../image/line.jpg" style="background-repeat:repeat-y;"><b>Isometrisch 3 (ohne Perspektive)</b></td></tr>
+      <tr>
+        <td valign="top">
+          Solche Tiles werden sehr selten eingesetzt. Es ist nur dann interessant, wenn Ansicht direkt von oben erfolgen soll.<br><br>
+          Definition: Tilebreite muss durch 2 teilbar sein. Höhe ist 1 Pixel kleiner als die Breite.<br><br>
+          Formel: Breite-1=Höhe<br><br>
+          <img src="../image/tile_iso3.gif"><br><br>
+        </td>
+      </tr>
+
+      <tr><td background="../image/line.jpg" style="background-repeat:repeat-y;"><b>Hexagonal 1 (Standard)</b></td></tr>
+      <tr>
+        <td valign="top">
+          Solche Tiles werden oft benutzt.  Wirken perspektivisch. Größenkompatibel zu Isometrisch 2.<br><br>
+          Definition: Tilebreite muss durch 4 teilbar sein, wenn man zu der Breite 2 Pixel addiert. Höhe muss 1 Pixel größer als halbe Breite sein. HINWEIS: Breite ist variabel und kann etwas gekürzt oder verlängert werden (darf nur nicht Hexagonal2-Dimensionen entsprechen!).<br><br>
+          Formel: Breite/2+1=Höhe<br><br>
+          <img src="../image/tile_hex1.gif"><br><br>
+        </td>
+      </tr>
+
+
+      <tr><td background="../image/line.jpg" style="background-repeat:repeat-y;"><b>Hexagonal 2 (Alternative)</b></td></tr>
+      <tr>
+        <td valign="top">
+          Solche Tiles sind gleichmässige Sechsecke. Direkte Ansicht von oben. Werden auch sehr oft verwendet.<br><br>
+          Definition: Breite muss durch 2 und Höhe muss durch 4 teilbar sein.<br><br>
+          Formel: Breite=Int((Höhe/2)/Sin#(60))*2<br><br>
+          <img src="../image/tile_hex2.gif"><br><br>
+        </td>
+      </tr>
+
+
+      <tr><td background="../image/line.jpg" style="background-repeat:repeat-y;"><b>Hexagonal 3 (Hochkant)</b></td></tr>
+      <tr>
+        <td valign="top">
+          Solche Tiles sind gleichmässige Sechsecke. Direkte Ansicht von oben. Werden recht selten werwendet und lassen sich in der Höhe nicht "zusammendrücken".<br><br>
+          Definition: Breite muss durch 4 und Höhe muss durch 2 teilbar sein.<br><br>
+          Formel: Höhe=Int((Breite/2)/Sin#(60))*2<br><br>
+          <img src="../image/tile_hex3.gif">
+        </td>
+      </tr>
+
+
+    </table>
+  </body>
+</html>

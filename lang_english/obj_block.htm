@@ -1,0 +1,48 @@
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="format.css">
+  </head>
+  <body bgcolor="#FFFFFF" text="#000000" link="#000000" vlink="#000000" alink="#000000">
+
+
+    <table width="100%" border="0" cellpadding="5" cellspacing="0">
+
+
+      <tr><td background="../image/line.jpg" style="background-repeat:repeat-y;"><b>Object (block)</b></td></tr>
+      <tr>
+        <td valign="top">
+
+          Block object is a 1x1 layer - but it is faster. These objects are always glued to a layer-object and you just set the tile-position of where this block object should be displayed. If you move the reference layer - all assigned blocks to the layer will also move. You can also play an animation independent from the master animation (different timing).<br><br>
+
+          <img src="image/setup_block.gif"><br><br>
+
+          <b>Layer:</b><br>
+          The reference layer that this block-object is glued to.<br><br>
+
+          <b>Tileset:</b><br>
+          After you create a tileset with the tileset editor you can choose a tileset here.<br><br>
+
+          <b>Animation:</b><br>
+          Set the animation mode here (standard, paused, forward, backward). This is only available if you've assigned an animation tile to the image.<br><br>
+
+          <b>Startframe:</b><br>
+          Set the starting frame here. This is only available if you've assigned an animation tile to the image.<br><br>
+
+          <b>Imagename:</b><br>
+          Imagename is always optional. You can read this value in your program.<br><br>
+
+          <b>Tilepos X/Y:</b><br>
+          Sets the position on the reference layer.<br><br>
+
+          <b>Adjustment X/Y:</b><br>
+          You can calibrate this object and move it a few pixels up/down/left/right. This is useful for iso/hex layers. Use minus numbers to move left or up.<br><br>
+
+          <b>Mask image:</b><br>
+          You can draw masked images (transparent mask color). Enabled by default.
+
+        </td>
+      </tr>
+
+    </table>
+  </body>
+</html>

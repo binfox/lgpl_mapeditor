@@ -1,0 +1,63 @@
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="format.css">
+  </head>
+  <body bgcolor="#FFFFFF" text="#000000" link="#000000" vlink="#000000" alink="#000000">
+
+
+    <table width="100%" border="0" cellpadding="5" cellspacing="0">
+
+
+      <tr><td background="../image/line.jpg" style="background-repeat:repeat-y;"><b>Layer (isometric2)</b></td></tr>
+      <tr>
+        <td valign="top">
+
+          Isometric2 is a rectangular ISO-Layer. It is an often used layer type. It has easier clipping and mouse-pick routines than isometric1. The X/Y-coordinates are chaoticly arranged. You can shift the first coordinate (0,0):<br><br>
+
+          <img src="../image/iso2a.gif"><br><br>
+
+          All data is contiguously stored in memory:<br><br>
+
+          <img src="../image/iso2b.gif"><br><br><br>
+
+        </td>
+      </tr>
+
+
+      <tr><td background="../image/line.jpg" style="background-repeat:repeat-y;"><b>Properties</b></td></tr>
+
+      <tr>
+        <td valign="top">
+
+          <img src="image/setup_isohex.gif"><br><br>
+
+          <b>Tileset:</b><br>
+          After you create a tileset with the tileset editor you can choose a tileset here.<br><br>
+
+          <b>Tilelayer:</b><br>
+          The tilelayer can be set to either 4 bit (15 tiles), 8 bit (255 tiles), 12 bit (4095 tiles) or 16 bit (65535 tiles). 8 and 16 bit are very easy to handle and are a bit faster. If you modify this value, the map editor will recalculate this layer.<br><br>
+
+          <b>Datalayer:</b><br>
+          The datalayer can be set to 0 bit, 1 bit (1 value), 2 bit (3 values), 4 bit (15 values) or 8 bit (255 values). If you modify this value, the map editor will recalculate this layer.<br><br>
+
+          <b>Layername:</b><br>
+          The layername is always optional. You can read this value in your program.<br><br>
+
+          <b>Layerpos X/Y:</b><br>
+          Layer position (in pixels).<br><br>
+
+          <b>Layerwidth, Layerheight:</b><br>
+          Layer width and height (in tiles). If you modify this value, the map editor will recalculate this layer.<br><br>
+
+          <b>Parallax X/Y:</b><br>
+          Parallax is set to 100% by default. Use 1%-99% for slower scrolling. Use 101%-200% for faster scrolling. 0% fixes the background object.<br><br>
+
+          <b>Tile Shift:</b><br>
+          If you enable this checkbox, the map editor will draw coordinate 0,0 shifted.
+
+        </td>
+      </tr>
+
+    </table>
+  </body>
+</html>

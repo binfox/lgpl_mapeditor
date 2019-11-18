@@ -1,0 +1,73 @@
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="format.css">
+  </head>
+  <body bgcolor="#FFFFFF" text="#000000" link="#000000" vlink="#000000" alink="#000000">
+
+
+    <table width="100%" border="0" cellpadding="5" cellspacing="0">
+
+
+      <tr><td background="../image/line.jpg" style="background-repeat:repeat-y;"><b>Datenaufbau Basisdaten/Datenlayer</b></td></tr>
+      <tr>
+        <td valign="top">
+          Alle Daten werden in einem Memoryblock gespeichert (Bank in BlitzBasic). Alle Daten stehen hintereinander aufgereiht - wie in der unteren Tabelle zu sehen. Beachte, dass Datentiefe 4, 8, 12 oder 16 Bit betragen kann.<br><br>
+
+          <table border="0" cellpadding="1" cellspacing="1">
+            <tr bgcolor="#E0E0E0"><td><b>Offset</b></td><td><b>Byte</b></td><td><b>Beschreibung</b></td></tr>
+            <tr bgcolor="#F0F0F0"><td>Tiefe*1</td><td>Tiefe</td><td>Wert 1</td></tr>
+            <tr bgcolor="#F0F0F0"><td>Tiefe*2</td><td>Tiefe</td><td>Wert 2</td></tr>
+            <tr bgcolor="#F0F0F0"><td>...</td><td><br></td><td><br></td></tr>
+          </table><br>
+
+          Lesezugriff erfolgt über folgende Formel. Der ermittelte Wert 'value' kennzeichnet Framenummer im Tileset. Wert 0 kennzeichnet immer ein unsichtbares Tile.<br><br>
+
+Datentiefe 4 Bit<br><table width="100%" border="0" cellpadding="5" cellspacing="0">
+<tr><td background="../image/green.jpg" style="background-repeat:repeat-y;">
+<pre>offset = ((y*sizex+x)/2)<br>mode   = ((y*sizex+x) And 1)*4<br>value  = (PeekByte(bank,offset) Shr mode) And 15</pre>
+</td></tr></table>
+
+<br>Datentiefe 8 Bit<br><table width="100%" border="0" cellpadding="5" cellspacing="0">
+<tr><td background="../image/green.jpg" style="background-repeat:repeat-y;">
+<pre>offset = y*sizex+x<br>value  = PeekByte(bank,offset)</pre>
+</td></tr></table>
+
+<br>Datentiefe 12 Bit<br><table width="100%" border="0" cellpadding="5" cellspacing="0">
+<tr><td background="../image/green.jpg" style="background-repeat:repeat-y;">
+<pre>offset = ((y*sizex+x)*3)/2<br>mode   = ((y*sizex+x) And 1)*4<br>value  = (PeekShort(bank,offset) Shr mode) And 4095</pre>
+</td></tr></table>
+
+<br>Datentiefe 16 Bit<br><table width="100%" border="0" cellpadding="5" cellspacing="0">
+<tr><td background="../image/green.jpg" style="background-repeat:repeat-y;">
+<pre>offset = (y*sizex+x)*2<br>value  = PeekShort(bank,offset)</pre>
+</td></tr></table>
+
+        </td>
+      </tr>
+
+      <tr><td><br></td></tr>
+
+
+      <tr><td background="../image/line.jpg" style="background-repeat:repeat-y;"><b>Animationen</b></td></tr>
+      <tr>
+        <td valign="top">
+          Der Map Editor wurde designt, um möglichst kompakte Karten zu erzeugen. Ein Layer kann bereits ab einer Layertiefe von nur 4 Bit erzeugt werden. Somit könnte ein Tile den Wert 0-15 speichern. Wie werden da aber Infos über Animationen in so kompakten Daten gespeichert?<br><br>
+
+          Wenn ein Tile/Bildobjekt den Wert 0 hat, dann wird es nicht gezeichnet - diese Stelle erscheint transparent.<br><br>
+
+          Alle Werte über 0 geben die Framenummer im Tileset an.<br><br>
+
+          Wenn nun 2 Animationen benutzt werden, dann werden alle Werte veschoben. Wert 1 und Wert 2 kennzeichnen nun Animation 1 und 2. Ab Wert 3 werden wieder normale Frames beschrieben.<br><br>
+
+          Wie man sieht, sind die Daten "dynamisch" aufgebaut - je mehr Animationen benutzt werden, desto weiter rutschen Frame-Werte nach hinten. Das untere Bild demonstriert es (grün=transparent, rot=Animation, grau=Frame):<br><br>
+
+
+          <img src="../image/anim.gif">
+        </td>
+      </tr>
+
+
+
+    </table>
+  </body>
+</html>
