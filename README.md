@@ -7,6 +7,9 @@ Download: https://www.blitzforum.de/upload/file.php?id=13415
 
 Changelog
 
+22.10.2023
+Export Map Layers to csv files
+
 02.11.2019
 Layer werden nun mit der passenden BitTiefe erstellt.
 
