@@ -1151,8 +1151,8 @@ Function editor_slide(mode)
     If editor_action3=0 Then Return
   EndIf
 
-  x=(editor_deltax-MouseX(editor_canvas))/(toolbar_xzoom*2+1)
-  y=(editor_deltay-MouseY(editor_canvas))/(toolbar_xzoom*2+1)
+  x=-(editor_deltax-MouseX(editor_canvas))/(toolbar_xzoom*2+1)
+  y=-(editor_deltay-MouseY(editor_canvas))/(toolbar_xzoom*2+1)
   MoveMouse editor_deltax,editor_deltay,editor_canvas
 
   sliderx=SliderValue(editor_sliderx)

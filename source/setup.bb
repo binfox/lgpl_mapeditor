@@ -45,7 +45,7 @@ Function setup_block()
   Local parent.layer=layer\layer
   Local image=layer\frame ;readonly
 
-  Local subwin       =CreateWindow   (language$(167),(window_maxx-230)/2,(window_maxy-265)/2,230,290,window,33)
+  Local subwin       =CreateWindow   (language$(167),(window_maxx-230)/2,(window_maxy-265)/2,210,290,window,33)
   Local subwin_width =ClientWidth    (subwin)
   Local subwin_height=ClientHeight   (subwin)
   Local label1       =CreateLabel    (language$(76) +":",5,008,70,20,subwin)
@@ -707,8 +707,8 @@ Function setup_layer()
   Local selected
   Local tmptile.tile
   Local maxwin=315
-  If layer\code=layer_map Then maxwin=315+20
-  If layer\code=layer_iso1 Then maxwin=315-20
+  If layer\code=layer_map Then maxwin=maxwin+50
+  If layer\code=layer_iso1 Then maxwin=maxwin-20
 
   Local depth1=layer\depth1
   Local depth2=layer\depth2
@@ -721,7 +721,7 @@ Function setup_layer()
   Local sizey =layer\sizey
   Local tile.tile=layer\tile
 
-  Local subwin       =CreateWindow   (language$(188),(window_maxx-230)/2,(window_maxy-335)/2,230,maxwin,window,33)
+  Local subwin       =CreateWindow   (language$(188),(window_maxx-230)/2,(window_maxy-335)/2,250,maxwin,window,33)
   Local subwin_width =ClientWidth    (subwin)
   Local subwin_height=ClientHeight   (subwin)
   Local label1       =CreateLabel    (language$(75) +":",5,008,70,20,subwin)
@@ -744,14 +744,16 @@ Function setup_layer()
   Local gadget_sizey =CreateTextField(85,180,140,22,subwin)
   Local gadget_parax =CreateTextField(85,205,140,22,subwin)
   Local gadget_paray =CreateTextField(85,205+25,140,22,subwin)
-  Local button_ok    =CreateButton   (language$(70),subwin_width/2-90,subwin_height-32,85,22,subwin)
-  Local button_cancel=CreateButton   (language$(71),subwin_width/2+5,subwin_height-32,85,22,subwin)
+  Local button_ok    =CreateButton   (language$(70),subwin_width/2-90,subwin_height-52,85,22,subwin)
+  Local button_cancel=CreateButton   (language$(71),subwin_width/2+5,subwin_height-52,85,22,subwin)
+  Local button_export
 
   If layer\code=layer_map Then
     gadget_mode=CreateButton(language$(174),85,255,140,22,subwin,2)
     mode=layer\mask
     gadget_infinity=CreateButton(language$(282),85,275,140,22,subwin,2)
     infinity=layer\mode
+	button_export=CreateButton   (language$(287),subwin_width/2+5,subwin_height-25,85,22,subwin)
   ElseIf layer\code=layer_iso2 Or layer\code=layer_hex1 Or layer\code=layer_hex2 Then
     gadget_mode=CreateButton(language$(196),85,255,140,22,subwin,2)
     mode=layer\start
@@ -774,7 +776,7 @@ Function setup_layer()
   AddGadgetItem gadget_depth2,"8 bit"
 
   DisableGadget window
-  Goto update
+  Goto update ;WTF? --- Sorry, this was TheShadow
 
 
   Repeat
@@ -793,6 +795,13 @@ Function setup_layer()
 
           Case button_cancel
             Goto abort
+
+          Case button_export
+            DebugLog("Hier Jan!")
+			pfad$ = RequestFile(language$(287), "*", 1)
+			If pfad$ <> "" Then 
+              export_map(layer,pfad$)
+			EndIf
 
           Case gadget_depth1
             selected=SelectedGadgetItem(gadget_depth1)
