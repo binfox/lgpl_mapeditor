@@ -1,7 +1,7 @@
 # lgpl_mapeditor
 2D Mapeditor
 
-Original von The Shadow www.mapeditor.de.vu
+Original von The Shadow www.mapeditor.de.vu (leider nciht mehr online)
 
 Download: [https://www.blitzforum.de/upload/file.php?id=13415](https://www.blitzforum.de/upload/file.php?id=13464)
 
