@@ -3,7 +3,7 @@
 
 Original von The Shadow www.mapeditor.de.vu
 
-Download: https://www.blitzforum.de/upload/file.php?id=13415
+Download: [https://www.blitzforum.de/upload/file.php?id=13415](https://www.blitzforum.de/upload/file.php?id=13464)
 
 Changelog
 
