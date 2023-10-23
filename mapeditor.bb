@@ -36,11 +36,23 @@
 ;editor_slide Sliden nun richtig herum
 ;event $0201 & event $0202 - 2. Maustaste zum scrollen
 
+;22.10.2023
+;mapeditor.bb Version 1.413
+;editor.bb Verschieben umgedreht, wie im Tileset.
+;setup.bb LAyer-Fenster vergrößert und Button eingefügt.
+;Language.ini eintrag 287
+;Weiter unter: setup.bb DebugLog("Hier Jan!")
+
+;23.10.2023
+;export.bb angelegt
+
+
 ;<<<<<<<<<TODO Jan_
 ;Skalierung im Tileeditor
 ;Menü Auswahl der Tiles kein Leer mehr.
 ;Auswahltool bei Radierer?!
 ;blitzmax engine zu BlitzmaxNG convertieren
+;eingine für Cerberus X
 
 ;<<<<<<<<<TODO The Shadow
 ;Converter-tool???
@@ -58,7 +70,7 @@
 ;layer_maxtiles   10000 100000000
 ;tile_maxtilesets 10    500
 
-Const UMEVersion$="1.412"
+Const UMEVersion$="1.413"
 Const demo=0  ;0=fullversion, 1=freeversion
 Const build=3
 Global vram=2
@@ -72,6 +84,7 @@ Include "source\clip.bb"
 Include "source\crc32.bb"
 Include "source\crypt.bb"
 Include "source\editor.bb"
+Include "source\export.bb"
 Include "source\extra.bb"
 Include "source\layer.bb"
 Include "source\layer_block.bb"
@@ -103,6 +116,8 @@ Include "source\tile_prog.bb"
 Include "source\toolbar.bb"
 Include "source\var.bb"
 Include "source\window.bb"
+
+
 
 ChangeDir map_app$
 
@@ -302,9 +317,16 @@ Repeat
 
     Case $0201 ;mousedown---------------------------------------------
 	  
+      If EventSource()=menu_canvas   Then DebugLog ("menu_canvas")
+      If EventSource()=editor_canvas Then DebugLog ("editor_canvas")
+      If EventSource()=editor_scroll Then DebugLog ("editor_scroll")
+      If EventSource()=list_canvas   Then DebugLog ("list_canvas")
+      If EventSource()=menu_button   Then DebugLog ("menu_button")
+      If EventSource()=splitter      Then DebugLog ("splitter")
+
 	  
-      If EventSource()=menu_canvas And EventData()<2 Then menu_click()
-      If EventSource()=menu_canvas And EventData()=2 Then menu_slide(0)
+      If EventSource()=menu_canvas   And EventData()<2 Then menu_click()
+      If EventSource()=menu_canvas   And EventData()=2 Then menu_slide(0)
       If EventSource()=editor_canvas And EventData()<2 Then editor_click(0)
       If EventSource()=editor_canvas And EventData()=2 Then editor_slide(0)
       If EventSource()=editor_scroll Then editor_scroll(0)
@@ -388,6 +410,7 @@ Repeat
       Select EventSource()
         Case editor_sliderx
           editor_update(2)
+
 
         Case editor_slidery
           editor_update(2)
